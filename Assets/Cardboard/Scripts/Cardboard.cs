@@ -510,7 +510,7 @@ public class Cardboard : MonoBehaviour {
   }
 
   void OnApplicationFocus(bool focus) {
-    device.OnFocus(focus);
+
   }
 
   void OnLevelWasLoaded(int level) {
@@ -525,6 +525,7 @@ public class Cardboard : MonoBehaviour {
     if (sdk == this) {
       sdk = null;
     }
+    
   }
 
   void OnApplicationQuit() {
