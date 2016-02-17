@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerCotroller : MonoBehaviour {
+public class PlayerCotroller : MonoBehaviour
+{
 
     Vector3 forward;
     Rigidbody rb;
@@ -15,44 +16,51 @@ public class PlayerCotroller : MonoBehaviour {
     float currentSpeed;
 
 
-    void Start() {
+    void Start()
+    {
         rb = GetComponent<Rigidbody>();
         co = GetComponent<SphereCollider>();
     }
 
-    void Update() {
+    void Update()
+    {
         forward = new Vector3(head.forward.x, 0, head.forward.z);
         forward = forward / forward.magnitude;
     }
-    void FixedUpdate() {
+    void FixedUpdate()
+    {
         if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
             currentSpeed = speed * runningMultiplyer;
         else
             currentSpeed = speed;
 
         if (Input.GetKey(KeyCode.W))
-            rb.velocity = currentSpeed * new Vector3(forward.x, rb.velocity.y, forward.z);
+            rb.velocity = new Vector3(forward.x * currentSpeed, rb.velocity.y, forward.z * currentSpeed);
 
         if (Input.GetKey(KeyCode.S))
-            rb.velocity = currentSpeed * new Vector3(-forward.x, rb.velocity.y, -forward.z);
+            rb.velocity = new Vector3(-forward.x * currentSpeed, rb.velocity.y, -forward.z * currentSpeed);
 
         if (Input.GetKey(KeyCode.A))
-            rb.velocity = currentSpeed * new Vector3(-forward.z, rb.velocity.y, forward.x);
+            rb.velocity = new Vector3(-forward.z * currentSpeed, rb.velocity.y, forward.x * currentSpeed);
 
         if (Input.GetKey(KeyCode.D))
-            rb.velocity = currentSpeed * new Vector3(forward.z, rb.velocity.y, -forward.x);
+            rb.velocity = new Vector3(forward.z * currentSpeed, rb.velocity.y, -forward.x * currentSpeed);
+
+        Debug.Log(rb.velocity);
 
         if (Input.GetKeyDown(KeyCode.Space))
             rb.AddForce(jumpForce * Vector3.up);
 
-        if (Input.GetKey(KeyCode.C)) {
+        if (Input.GetKey(KeyCode.C))
+        {
             if (co.radius <= 0.2f)
                 co.radius = 0.2f;
             else
                 co.radius -= 0.04f;
         }
 
-        else {
+        else
+        {
             if (co.radius >= 0.5f)
                 co.radius = 0.5f;
             else
