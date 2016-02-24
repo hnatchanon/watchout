@@ -1,16 +1,21 @@
 ﻿using UnityEngine;
-using System.Collections;
-
+using UnityEngine.UI;
+using System;
 public class PlayerCotroller : MonoBehaviour {
 
     Vector3 forward;
     Rigidbody rb;
     SphereCollider co;
 
+    public Text[] arr_text;
+
     public Transform head;
     public float speed = 1f;
     public float runningMultiplyer = 2f;
     public float jumpForce = 100f;
+
+    public static bool isVerticle = false;
+    public static bool isBottomVerticle = false;
 
     float currentSpeed;
 
@@ -25,34 +30,56 @@ public class PlayerCotroller : MonoBehaviour {
         forward = forward / forward.magnitude;
     }
     void FixedUpdate() {
+
         if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
             currentSpeed = speed * runningMultiplyer;
         else
             currentSpeed = speed;
 
-        if (Input.GetKey(KeyCode.W))
-            rb.velocity = new Vector3(forward.x * currentSpeed, rb.velocity.y, forward.z * currentSpeed);
+        Debug.Log(isVerticle);
 
-        if (Input.GetKey(KeyCode.S))
-            rb.velocity = new Vector3(-forward.x * currentSpeed, rb.velocity.y, -forward.z * currentSpeed);
+        if (!isVerticle)
+        {
+            if (Input.GetKey(KeyCode.W))
+                rb.velocity = new Vector3(forward.x * currentSpeed, rb.velocity.y, forward.z * currentSpeed);
 
-        if (Input.GetKey(KeyCode.A))
-            rb.velocity = new Vector3(-forward.z * currentSpeed, rb.velocity.y, forward.x * currentSpeed);
+            if (Input.GetKey(KeyCode.S))
+                rb.velocity = new Vector3(-forward.x * currentSpeed, rb.velocity.y, -forward.z * currentSpeed);
 
-        if (Input.GetKey(KeyCode.D))
-            rb.velocity = new Vector3(forward.z * currentSpeed, rb.velocity.y, -forward.x * currentSpeed);
+            if (Input.GetKey(KeyCode.A))
+                rb.velocity = new Vector3(-forward.z * currentSpeed, rb.velocity.y, forward.x * currentSpeed);
+
+            if (Input.GetKey(KeyCode.D))
+                rb.velocity = new Vector3(forward.z * currentSpeed, rb.velocity.y, -forward.x * currentSpeed);
+        }
+        else
+        {
+            if (Input.GetKey(KeyCode.W))
+                rb.velocity = new Vector3(0, currentSpeed, 0);
+            else if (Input.GetKey(KeyCode.S))
+            {
+                if (!isBottomVerticle)
+                    rb.velocity = new Vector3(0, -currentSpeed, 0);
+                else
+                    rb.velocity = new Vector3(-forward.x * currentSpeed, rb.velocity.y, -forward.z * currentSpeed);
+            }
+            else
+                rb.velocity = new Vector3(0, 0, 0);
+        }
 
         if (Input.GetKeyDown(KeyCode.Space))
             rb.AddForce(jumpForce * Vector3.up);
 
-        if (Input.GetKey(KeyCode.C)) {
+        if (Input.GetKey(KeyCode.C))
+        {
             if (co.radius <= 0.2f)
                 co.radius = 0.2f;
             else
                 co.radius -= 0.04f;
         }
 
-        else {
+        else
+        {
             if (co.radius >= 0.5f)
                 co.radius = 0.5f;
             else
@@ -60,9 +87,24 @@ public class PlayerCotroller : MonoBehaviour {
         }
     }
 
-    void OnTriggerEnter(Collider other) {
-        if (other.CompareTag("Jumper")) {
-            rb.AddForce(new Vector3(0, jumpForce * 3, 0));
+    public void setState(int state)
+    {
+        if (state == 0)
+        {
+            isVerticle = true;
+            rb.useGravity = false;
         }
+        else if (state == 1)
+        {
+            isVerticle = false;
+            rb.useGravity = true;
+        }
+        else if (state == 2)
+            isBottomVerticle = true;
+        else if (state == 3)
+            isBottomVerticle = false;
     }
+
+
+    
 }
