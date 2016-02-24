@@ -31,7 +31,7 @@ public class PlayerCotroller : MonoBehaviour {
     }
     void FixedUpdate() {
 
-        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.Alpha5))
             currentSpeed = speed * runningMultiplyer;
         else
             currentSpeed = speed;
@@ -67,10 +67,10 @@ public class PlayerCotroller : MonoBehaviour {
                 rb.velocity = new Vector3(0, 0, 0);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Alpha2))
             rb.AddForce(jumpForce * Vector3.up);
 
-        if (Input.GetKey(KeyCode.C))
+        if (Input.GetKey(KeyCode.C)  || Input.GetKey(KeyCode.Alpha7))
         {
             if (co.radius <= 0.2f)
                 co.radius = 0.2f;
