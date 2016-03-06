@@ -14,6 +14,8 @@ public class PlayerCotroller : MonoBehaviour {
     public float runningMultiplyer = 2f;
     public float jumpForce = 100f;
 
+    public static bool isJumping = false;
+
     public static bool isVerticle = false;
     public static bool isBottomVerticle = false;
 
@@ -40,9 +42,7 @@ public class PlayerCotroller : MonoBehaviour {
             currentSpeed = speed * runningMultiplyer;
         else
             currentSpeed = speed;
-
-        Debug.Log(isVerticle);
-
+        
         if (!isVerticle)
         {
             if (Input.GetKey(KeyCode.W))
@@ -71,9 +71,12 @@ public class PlayerCotroller : MonoBehaviour {
             else
                 rb.velocity = new Vector3(0, 0, 0);
         }
-
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Alpha2))
+        //Debug.Log(isJumping);
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Alpha2)) && !isVerticle && isJumping == false)
+        {
+            isJumping = true;
             rb.AddForce(jumpForce * Vector3.up);
+        }
 
         if (Input.GetKey(KeyCode.C)  || Input.GetKey(KeyCode.Alpha7))
         {
@@ -118,6 +121,11 @@ public class PlayerCotroller : MonoBehaviour {
             isBottomVerticle = true;
         else if (state == 3)
             isBottomVerticle = false;
+    }
+
+    public void setIsJumping(bool boo)
+    {
+        isJumping = boo;
     }
 
 
