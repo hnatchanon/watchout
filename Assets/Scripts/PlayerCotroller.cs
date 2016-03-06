@@ -32,8 +32,46 @@ public class PlayerCotroller : MonoBehaviour {
         forward = forward / forward.magnitude;
     }
     void FixedUpdate() {
+        checkInput();
+        checkFall();
+    }
 
-        if(transform.position.y <= -30)
+	void OnTriggerEnter (Collider other)
+	{
+		if(other.gameObject.CompareTag("box"))
+		{
+			//other.gameObject.SetActive (false);
+			Application.LoadLevel ("Level Select");
+		}
+	}
+
+
+    public void setState(int state)
+    {
+        if (state == 0)
+        {
+            isVerticle = true;
+            rb.useGravity = false;
+        }
+        else if (state == 1)
+        {
+            isVerticle = false;
+            rb.useGravity = true;
+        }
+        else if (state == 2)
+            isBottomVerticle = true;
+        else if (state == 3)
+            isBottomVerticle = false;
+    }
+
+    public void setIsJumping(bool boo)
+    {
+        isJumping = boo;
+    }
+
+    public void checkInput()
+    {
+        if (transform.position.y <= -30)
         {
             transform.position = new Vector3(0, 2, 0);
         }
@@ -42,7 +80,7 @@ public class PlayerCotroller : MonoBehaviour {
             currentSpeed = speed * runningMultiplyer;
         else
             currentSpeed = speed;
-        
+
         if (!isVerticle)
         {
             if (Input.GetKey(KeyCode.W))
@@ -78,7 +116,7 @@ public class PlayerCotroller : MonoBehaviour {
             rb.AddForce(jumpForce * Vector3.up);
         }
 
-        if (Input.GetKey(KeyCode.C)  || Input.GetKey(KeyCode.Alpha7))
+        if (Input.GetKey(KeyCode.C) || Input.GetKey(KeyCode.Alpha7))
         {
             if (co.radius <= 0.2f)
                 co.radius = 0.2f;
@@ -95,38 +133,15 @@ public class PlayerCotroller : MonoBehaviour {
         }
     }
 
-	void OnTriggerEnter (Collider other)
-	{
-		if(other.gameObject.CompareTag("box"))
-		{
-			//other.gameObject.SetActive (false);
-			Application.LoadLevel ("Level Select");
-		}
-	}
-
-
-    public void setState(int state)
+    public void checkFall()
     {
-        if (state == 0)
+        if(transform.position.y <= -50)
         {
-            isVerticle = true;
-            rb.useGravity = false;
+            //Dead >> Result popup
+            transform.position = new Vector3(0, 1, 0);
         }
-        else if (state == 1)
-        {
-            isVerticle = false;
-            rb.useGravity = true;
-        }
-        else if (state == 2)
-            isBottomVerticle = true;
-        else if (state == 3)
-            isBottomVerticle = false;
     }
 
-    public void setIsJumping(bool boo)
-    {
-        isJumping = boo;
-    }
 
 
     
