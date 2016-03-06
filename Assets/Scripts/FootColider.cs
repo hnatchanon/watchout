@@ -4,7 +4,7 @@ using System.Collections;
 public class FootColider : MonoBehaviour {
 
 
-    public PlayerCotroller playerController;
+    public PlayerController playerController;
     private Rigidbody rb;
     void Start ()
     {
@@ -13,9 +13,9 @@ public class FootColider : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.name);
+        Debug.Log("Foot Colider: " + other.name);
         if (other.CompareTag("Floor"))
-            playerController.setIsJumping(false);
+            playerController.state = PlayerController.playerState.Idle;
         
     }
 
