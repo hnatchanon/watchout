@@ -1,57 +1,81 @@
 ﻿using UnityEngine;
-using System.Collections;
-
-public class PlayerCotroller : MonoBehaviour
-{
+using UnityEngine.UI;
+using System;
+public class PlayerCotroller : MonoBehaviour {
 
     Vector3 forward;
     Rigidbody rb;
     SphereCollider co;
+
+    public Text[] arr_text;
 
     public Transform head;
     public float speed = 1f;
     public float runningMultiplyer = 2f;
     public float jumpForce = 100f;
 
+    public static bool isVerticle = false;
+    public static bool isBottomVerticle = false;
+
     float currentSpeed;
 
 
-    void Start()
-    {
+    void Start() {
         rb = GetComponent<Rigidbody>();
         co = GetComponent<SphereCollider>();
     }
 
-    void Update()
-    {
+    void Update() {
         forward = new Vector3(head.forward.x, 0, head.forward.z);
         forward = forward / forward.magnitude;
     }
-    void FixedUpdate()
-    {
-        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+    void FixedUpdate() {
+
+        if(transform.position.y <= -30)
+        {
+            transform.position = new Vector3(0, 2, 0);
+        }
+
+        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.Alpha5))
             currentSpeed = speed * runningMultiplyer;
         else
             currentSpeed = speed;
 
-        if (Input.GetKey(KeyCode.W))
-            rb.velocity = new Vector3(forward.x * currentSpeed, rb.velocity.y, forward.z * currentSpeed);
+        Debug.Log(isVerticle);
 
-        if (Input.GetKey(KeyCode.S))
-            rb.velocity = new Vector3(-forward.x * currentSpeed, rb.velocity.y, -forward.z * currentSpeed);
+        if (!isVerticle)
+        {
+            if (Input.GetKey(KeyCode.W))
+                rb.velocity = new Vector3(forward.x * currentSpeed, rb.velocity.y, forward.z * currentSpeed);
 
-        if (Input.GetKey(KeyCode.A))
-            rb.velocity = new Vector3(-forward.z * currentSpeed, rb.velocity.y, forward.x * currentSpeed);
+            if (Input.GetKey(KeyCode.S))
+                rb.velocity = new Vector3(-forward.x * currentSpeed, rb.velocity.y, -forward.z * currentSpeed);
 
-        if (Input.GetKey(KeyCode.D))
-            rb.velocity = new Vector3(forward.z * currentSpeed, rb.velocity.y, -forward.x * currentSpeed);
+            if (Input.GetKey(KeyCode.A))
+                rb.velocity = new Vector3(-forward.z * currentSpeed, rb.velocity.y, forward.x * currentSpeed);
 
-        Debug.Log(rb.velocity);
+            if (Input.GetKey(KeyCode.D))
+                rb.velocity = new Vector3(forward.z * currentSpeed, rb.velocity.y, -forward.x * currentSpeed);
+        }
+        else
+        {
+            if (Input.GetKey(KeyCode.W))
+                rb.velocity = new Vector3(0, currentSpeed, 0);
+            else if (Input.GetKey(KeyCode.S))
+            {
+                if (!isBottomVerticle)
+                    rb.velocity = new Vector3(0, -currentSpeed, 0);
+                else
+                    rb.velocity = new Vector3(-forward.x * currentSpeed, rb.velocity.y, -forward.z * currentSpeed);
+            }
+            else
+                rb.velocity = new Vector3(0, 0, 0);
+        }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Alpha2))
             rb.AddForce(jumpForce * Vector3.up);
 
-        if (Input.GetKey(KeyCode.C))
+        if (Input.GetKey(KeyCode.C)  || Input.GetKey(KeyCode.Alpha7))
         {
             if (co.radius <= 0.2f)
                 co.radius = 0.2f;
@@ -68,6 +92,7 @@ public class PlayerCotroller : MonoBehaviour
         }
     }
 
+<<<<<<< HEAD
 	void OnTriggerEnter (Collider other)
 	{
 		if(other.gameObject.CompareTag("box"))
@@ -78,6 +103,26 @@ public class PlayerCotroller : MonoBehaviour
 	}
 
 
+=======
+    public void setState(int state)
+    {
+        if (state == 0)
+        {
+            isVerticle = true;
+            rb.useGravity = false;
+        }
+        else if (state == 1)
+        {
+            isVerticle = false;
+            rb.useGravity = true;
+        }
+        else if (state == 2)
+            isBottomVerticle = true;
+        else if (state == 3)
+            isBottomVerticle = false;
+    }
+>>>>>>> bb0aeefa8c217010c1e5b20315563d22f225c0cb
 
 
+    
 }
