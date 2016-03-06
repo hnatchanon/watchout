@@ -25,6 +25,17 @@ public class PlayerColider : MonoBehaviour {
             playerController.state = PlayerController.playerState.Air;
             rb.AddForce(new Vector3(0, jumpForce * 3, 0));
         }
+
+        if (other.CompareTag("Star"))
+        {
+            other.gameObject.active = false;
+            playerController.getStar();
+        }
+
+        if(other.CompareTag("Goal"))
+        {
+            playerController.state = PlayerController.playerState.StageClear;
+        }
     }
 
     void OnTriggerStay(Collider other)
