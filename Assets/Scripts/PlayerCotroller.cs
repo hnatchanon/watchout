@@ -31,6 +31,11 @@ public class PlayerCotroller : MonoBehaviour {
     }
     void FixedUpdate() {
 
+        if(transform.position.y <= -30)
+        {
+            transform.position = new Vector3(0, 2, 0);
+        }
+
         if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.Alpha5))
             currentSpeed = speed * runningMultiplyer;
         else
