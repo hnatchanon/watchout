@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerColider : MonoBehaviour {
 
-    public PlayerCotroller playerController;
+    public PlayerController playerController;
     public float jumpForce;
 
     private Rigidbody rb;
@@ -18,20 +18,21 @@ public class PlayerColider : MonoBehaviour {
     {
 
         if (other.CompareTag("Floor"))
-            playerController.setState(2);
+            playerController.isGroud = true;
 
         if (other.CompareTag("Jumper"))
         {
+            playerController.state = PlayerController.playerState.Air;
             rb.AddForce(new Vector3(0, jumpForce * 3, 0));
         }
     }
 
     void OnTriggerStay(Collider other)
     {
+
         if (other.CompareTag("VerticleObstrucle"))
         {
-            Debug.Log("VerticleObstucle");
-            playerController.setState(0);
+            playerController.state = PlayerController.playerState.Claiming;
         }
         //else
         //{
@@ -43,10 +44,10 @@ public class PlayerColider : MonoBehaviour {
     {
 
         if (other.CompareTag("Floor"))
-            playerController.setState(3);
+            playerController.isGroud = false;
 
         if (other.CompareTag("VerticleObstrucle"))
-            playerController.setState(1);
+            playerController.state = PlayerController.playerState.Idle;
 
     }
 }
