@@ -17,7 +17,7 @@ public class PlayerColider : MonoBehaviour {
     void OnTriggerEnter(Collider other)
     {
 
-        if (other.CompareTag("BottomLadder"))
+        if (other.CompareTag("Floor"))
             playerController.setState(2);
 
         if (other.CompareTag("Jumper"))
@@ -28,7 +28,6 @@ public class PlayerColider : MonoBehaviour {
 
     void OnTriggerStay(Collider other)
     {
-        Debug.Log(other);
         if (other.CompareTag("VerticleObstrucle"))
         {
             Debug.Log("VerticleObstucle");
@@ -43,7 +42,7 @@ public class PlayerColider : MonoBehaviour {
     void OnTriggerExit(Collider other)
     {
 
-        if (other.CompareTag("BottomLadder"))
+        if (other.CompareTag("Floor"))
             playerController.setState(3);
 
         if (other.CompareTag("VerticleObstrucle"))
