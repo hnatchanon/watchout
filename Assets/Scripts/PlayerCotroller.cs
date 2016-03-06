@@ -68,5 +68,16 @@ public class PlayerCotroller : MonoBehaviour
         }
     }
 
+	void OnTriggerEnter (Collider other)
+	{
+		if(other.gameObject.CompareTag("box"))
+		{
+			//other.gameObject.SetActive (false);
+			Application.LoadLevel ("Level Select");
+		}
+	}
+
+
+
 
 }
