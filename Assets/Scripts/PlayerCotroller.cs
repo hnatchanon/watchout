@@ -92,7 +92,6 @@ public class PlayerCotroller : MonoBehaviour {
         }
     }
 
-<<<<<<< HEAD
 	void OnTriggerEnter (Collider other)
 	{
 		if(other.gameObject.CompareTag("box"))
@@ -103,7 +102,6 @@ public class PlayerCotroller : MonoBehaviour {
 	}
 
 
-=======
     public void setState(int state)
     {
         if (state == 0)
@@ -121,7 +119,6 @@ public class PlayerCotroller : MonoBehaviour {
         else if (state == 3)
             isBottomVerticle = false;
     }
->>>>>>> bb0aeefa8c217010c1e5b20315563d22f225c0cb
 
 
     
