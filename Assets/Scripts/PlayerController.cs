@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour {
 
     float currentSpeed;
 
+    private int Score = 0;
 
     void Start() {
         rb = GetComponent<Rigidbody>();
@@ -111,6 +112,10 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    public void getStar()
+    {
+        Score++;
+    }
 
 
 
