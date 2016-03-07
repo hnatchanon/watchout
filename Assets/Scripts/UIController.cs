@@ -1,0 +1,83 @@
+﻿using UnityEngine;
+using System.Collections;
+using UnityEngine.UI;
+using System.Collections.Generic;
+
+public class UIController : MonoBehaviour {
+
+	public Button s1;
+	public Button s2;
+	public Button s3;
+	private Button cur;
+	private Button pre;
+	private int preIndex;
+	List<Button> blist = new List<Button>();
+
+
+
+
+	public void changeScence()
+	{
+		Application.LoadLevel ("Main Menu");
+	}
+	void Start()
+	{
+		blist.Add (s1);
+		blist.Add (s2);
+		blist.Add (s3);
+		foreach (Button b in blist) {
+			b.GetComponent<Image> ().color = Color.grey;
+		}
+		cur = blist [0];
+		cur.GetComponent<Image> ().color = Color.green;
+		//Debug.Log (cur);
+		//Debug.Log ("POPPY");
+	   
+	}
+
+	void FindIndex (){
+		for (int i = 0; i < blist.Count; i++) {
+
+			if (blist [i] == cur) {
+				preIndex = i;
+				//Debug.Log (i);
+				break;
+			}
+		}
+	}
+	
+	void Update(){
+		if (Input.GetKeyDown(KeyCode.UpArrow)) {
+			FindIndex ();
+
+			if (preIndex + 1 > blist.Count-1) 
+				cur = blist [0];
+			else 
+				cur = blist [preIndex + 1];
+			
+			
+			pre = blist[preIndex];
+			cur.GetComponent<Image> ().color = Color.green;
+			pre.GetComponent<Image> ().color = Color.grey;
+
+		}
+		if (Input.GetKeyDown(KeyCode.DownArrow)) {
+			FindIndex ();
+			if (preIndex - 1 < 0) 
+				cur = blist [2];
+			else 
+				cur = blist[preIndex - 1];
+			
+
+			pre = blist[preIndex];
+			cur.GetComponent<Image> ().color = Color.green;
+			pre.GetComponent<Image> ().color = Color.grey;
+		
+
+		}
+		if (Input.GetKeyDown(KeyCode.Space)) {
+		   changeScence ();
+		}
+			
+	}
+}
