@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour {
     Rigidbody rb;
     SphereCollider co;
 
-    public enum playerState {Idle, Running, Claiming, Air, Dead, StageClear};
+    public enum playerState { Idle, Running, Claiming, Air, Dead, StageClear };
 
     public Text[] arr_text;
 
@@ -16,11 +16,11 @@ public class PlayerController : MonoBehaviour {
     public float runningMultiplyer = 2f;
     public float jumpForce = 100f;
 
-    public playerState state = playerState.Idle;
     public bool isGroud = false;
 
     float currentSpeed;
 
+    private playerState state = playerState.Idle;
     private int Score = 0;
 
     void Start() {
@@ -38,87 +38,85 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    void FixedUpdate()
-    {
-        checkSprint();
+    void FixedUpdate() {
+        CheckSprint();
         checkInput();
-        checkFall();
+        CheckFall();
     }
 
-	void OnTriggerEnter (Collider other)
-	{
-		if(other.gameObject.CompareTag("box"))
-		{
-			//other.gameObject.SetActive (false);
-			Application.LoadLevel ("Level Select");
-		}
-	}
+    void OnTriggerEnter(Collider other) {
+        if (other.gameObject.CompareTag("box")) {
+            //other.gameObject.SetActive (false);
+            Application.LoadLevel("Level Select");
+        }
+    }
 
 
-    public void checkInput()
-    {
+    public void checkInput() {
         Debug.Log("Check Input");
-        if (state == playerState.Idle || state == playerState.Air)
-        {
-            if (Input.GetKey(KeyCode.W))
-            {
-                rb.velocity = new Vector3(forward.x * currentSpeed, rb.velocity.y, forward.z * currentSpeed);
+        if (state == playerState.Idle || state == playerState.Air) {
+            if (Input.GetKey(KeyCode.W)) {
+                Move(forward);
             }
 
             if (Input.GetKey(KeyCode.S))
-                rb.velocity = new Vector3(-forward.x * currentSpeed, rb.velocity.y, -forward.z * currentSpeed);
+                Move(new Vector3(-forward.x, 0, -forward.z));
 
             if (Input.GetKey(KeyCode.A))
-                rb.velocity = new Vector3(-forward.z * currentSpeed, rb.velocity.y, forward.x * currentSpeed);
+                Move(new Vector3(-forward.z, 0, forward.x));
 
             if (Input.GetKey(KeyCode.D))
-                rb.velocity = new Vector3(forward.z * currentSpeed, rb.velocity.y, -forward.x * currentSpeed);
+                Move(new Vector3(forward.z, 0, -forward.x));
         }
-        else if(state == playerState.Claiming)
-        {
+        else if (state == playerState.Claiming) {
+            rb.useGravity = false;
             if (Input.GetKey(KeyCode.W))
-                rb.velocity = new Vector3(0, currentSpeed, 0);
-            else if (Input.GetKey(KeyCode.S))
-            {
+                Move(new Vector3(0, 1, 0));
+            else if (Input.GetKey(KeyCode.S)) {
                 if (!isGroud)
-                    rb.velocity = new Vector3(0, -currentSpeed, 0);
+                    Move(new Vector3(0, -1, 0));
                 else
-                    rb.velocity = new Vector3(-forward.x * currentSpeed, rb.velocity.y, -forward.z * currentSpeed);
+                    Move(new Vector3(-forward.x, 0, -forward.z));
             }
-            else
-                rb.velocity = new Vector3(0, 0, 0);
         }
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Alpha2)) && state != playerState.Claiming && state != playerState.Air)
-        {
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Alpha2)) && state != playerState.Claiming && state != playerState.Air) {
             state = playerState.Air;
             rb.AddForce(jumpForce * Vector3.up);
         }
     }
 
-    public void checkSprint()
-    {
+    private void Move(Vector3 direction) {
+        rb.MovePosition(transform.position + direction * Time.deltaTime * currentSpeed);
+    }
+
+    public void CheckSprint() {
         if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.Alpha5))
             currentSpeed = speed * runningMultiplyer;
         else
             currentSpeed = speed;
     }
 
-    public void checkFall()
-    {
-        if(transform.position.y <= -50)
-        {
+    public void CheckFall() {
+        if (transform.position.y <= -50) {
             //Dead >> Result popup
-            transform.position = new Vector3(0, 1, 0);
+            rb.MovePosition(new Vector3(0, 1, 0));
         }
     }
 
-    public void getStar()
-    {
+    public void GetStar() {
         Score++;
     }
 
+    public void SetState(playerState state) {
+        if (this.state == state) {
+            return;
+        }
 
+        if (this.state == playerState.Claiming) {
+            rb.useGravity = true;
+        }
 
+        this.state = state;
+    }
 
-    
 }

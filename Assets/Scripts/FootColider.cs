@@ -15,7 +15,7 @@ public class FootColider : MonoBehaviour {
     {
         Debug.Log("Foot Colider: " + other.name);
         if (other.CompareTag("Floor"))
-            playerController.state = PlayerController.playerState.Idle;
+            playerController.SetState(PlayerController.playerState.Idle);
         
     }
 

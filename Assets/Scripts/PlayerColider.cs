@@ -28,8 +28,8 @@ public class PlayerColider : MonoBehaviour {
 
         if (other.CompareTag("Star"))
         {
-            other.gameObject.active = false;
-            playerController.getStar();
+            other.gameObject.SetActive(false);
+            playerController.GetStar();
         }
 
         if(other.CompareTag("Goal"))
@@ -57,8 +57,9 @@ public class PlayerColider : MonoBehaviour {
         if (other.CompareTag("Floor"))
             playerController.isGroud = false;
 
-        if (other.CompareTag("VerticleObstrucle"))
-            playerController.state = PlayerController.playerState.Idle;
+        if (other.CompareTag("VerticleObstrucle")) {
+            playerController.SetState(PlayerController.playerState.Idle);
+        }
 
     }
 }
