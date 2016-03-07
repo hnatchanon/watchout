@@ -5,18 +5,20 @@ public class MovingPlane : MonoBehaviour {
 
     public float gridSize = 4f;
     public float movingLength;
-    public bool isVertical = true;
+    public Vector3 direction;
     public float speed = 1f;
 
     private float addedPosition;
     private float __i = 0f;
-    private float __y;
-    private float __x;
+    private float __x, __y, __z;
+    private Rigidbody rb;
 
     // Use this for initialization
     void Start() {
+        rb = GetComponent<Rigidbody>();
         __x = transform.position.x;
         __y = transform.position.y;
+        __z = transform.position.z;
     }
 
     // Update is called once per frame
@@ -29,11 +31,9 @@ public class MovingPlane : MonoBehaviour {
             addedPosition = (2 - tmp) * gridSize * movingLength;
         }
 
-        if (isVertical) {
-            transform.position = new Vector3(transform.position.x, __y + addedPosition, transform.position.z);
-        }
-        else {
-            transform.position = new Vector3(__x + addedPosition, transform.position.y, transform.position.z);
-        }
+        float tmpX = __x + (addedPosition * direction.x);
+        float tmpY = __y + (addedPosition * direction.y);
+        float tmpZ = __z + (addedPosition * direction.z);
+        rb.MovePosition(new Vector3(tmpX, tmpY, tmpZ));
     }
 }
