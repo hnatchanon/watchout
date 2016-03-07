@@ -22,7 +22,7 @@ public class PlayerColider : MonoBehaviour {
 
         if (other.CompareTag("Jumper"))
         {
-            playerController.state = PlayerController.playerState.Air;
+            playerController.SetState(PlayerController.playerState.Air);
             rb.AddForce(new Vector3(0, jumpForce * 3, 0));
         }
 
@@ -34,7 +34,7 @@ public class PlayerColider : MonoBehaviour {
 
         if(other.CompareTag("Goal"))
         {
-            playerController.state = PlayerController.playerState.StageClear;
+            playerController.SetState(PlayerController.playerState.StageClear);
         }
     }
 
@@ -43,7 +43,7 @@ public class PlayerColider : MonoBehaviour {
 
         if (other.CompareTag("VerticleObstrucle"))
         {
-            playerController.state = PlayerController.playerState.Claiming;
+            playerController.SetState(PlayerController.playerState.Claiming);
         }
         //else
         //{
