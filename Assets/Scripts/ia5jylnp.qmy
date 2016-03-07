@@ -5,10 +5,10 @@ public class MapGenerator : MonoBehaviour {
 
 
     private static Quaternion[] direction = {
-                                                new Quaternion(0,0.7f,0,0.7f),
-                                                new Quaternion(0,1.0f,0,0),
-                                                new Quaternion(0,0.7f,0,-0.7f),
-                                                new Quaternion(0,0,0,-1.0f)
+                                                new Quaternion(0,0,0,0),
+                                                new Quaternion(0,90,0,0),
+                                                new Quaternion(0,180,0,0),
+                                                new Quaternion(0,270,0,0)
                                             };
     private int[, ,] numbers = {
 	{//floor 1
@@ -16,7 +16,7 @@ public class MapGenerator : MonoBehaviour {
 		{ 0,  0,  0,  0,    0,  0,  0,  0, 0},
 		{ 0,  0,  0,  0,    0,  0,  0,  0, 0},
 		{ 0,  0,  0, 10,   10, 10,  0,  0, 0},
-		{ 0, 50, 10, 10, 1011, 10, 10, 52, 0},
+		{ 0, 51, 10, 10, 1011, 10, 10, 53, 0},
 		{ 0,  0,  0, 10,   10, 10,  0,  0, 0},
 		{ 0,  0,  0,  0,   10,  0,  0,  0, 0},
 		{ 0,  0,  0,  0, 2010,  0,  0,  0, 0},
@@ -68,6 +68,7 @@ public class MapGenerator : MonoBehaviour {
                         else if (numbers[i, j, k] % 10 == 3) {
                             mp.direction = new Vector3(0f, 0f, -1f);
                         }
+                        Debug.Log(mp.transform.rotation);
                         mp.movingLength = 2;
                     }
                     // moving plane |
@@ -78,6 +79,7 @@ public class MapGenerator : MonoBehaviour {
                     }
                     // slope
                     if ((numbers[i, j, k] / 10) % 100 == 5) {
+                        Debug.Log(direction[numbers[i, j, k] % 10]);
                         Instantiate(slope, new Vector3(j * 4, i * 4, k * 4), direction[numbers[i, j, k] % 10]);
                     }
 
