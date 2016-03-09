@@ -12,6 +12,7 @@ public class MovingPlane : MonoBehaviour {
     private float __i = 0f;
     private float __x, __y, __z;
     private Rigidbody rb;
+    private Vector3 destination;
 
     // Use this for initialization
     void Start() {
@@ -19,6 +20,8 @@ public class MovingPlane : MonoBehaviour {
         __x = transform.position.x;
         __y = transform.position.y;
         __z = transform.position.z;
+
+        destination = transform.position + direction * movingLength;
     }
 
     // Update is called once per frame
@@ -34,6 +37,8 @@ public class MovingPlane : MonoBehaviour {
         float tmpX = __x + (addedPosition * direction.x);
         float tmpY = __y + (addedPosition * direction.y);
         float tmpZ = __z + (addedPosition * direction.z);
-        rb.MovePosition(new Vector3(tmpX, tmpY, tmpZ));
+        //rb.MovePosition(new Vector3(tmpX, tmpY, tmpZ));
+
+        transform.position = new Vector3(tmpX, tmpY, tmpZ);
     }
 }
