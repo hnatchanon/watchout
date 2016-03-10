@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     void FixedUpdate() {
+        Debug.Log(isGroud);
         CheckSprint();
         checkInput();
         CheckFall();
@@ -71,12 +72,12 @@ public class PlayerController : MonoBehaviour {
         else if (state == playerState.Claiming) {
             rb.useGravity = false;
             if (Input.GetKey(KeyCode.W))
-                Move(new Vector3(forward.x/2, 1, forward.z/2));
+                Move(new Vector3(forward.x/2, speed/2, forward.z/2));
             else if (Input.GetKey(KeyCode.S)) {
                 if (!isGroud)
-                    Move(new Vector3(0, -1, 0));
+                    Move(new Vector3(0, -speed/2, 0));
                 else
-                    Move(new Vector3(-forward.x, 0, -forward.z));
+                    Move(new Vector3(0, 0, 0));
             }
             else
                 rb.velocity = new Vector3(0, 0, 0);

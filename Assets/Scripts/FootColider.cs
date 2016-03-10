@@ -16,7 +16,18 @@ public class FootColider : MonoBehaviour {
         Debug.Log("Foot Colider: " + other.name);
         if (other.CompareTag("Floor"))
             playerController.SetState(PlayerController.playerState.Idle);
-        
+        if (other.CompareTag("MovingPlane"))
+            playerController.gameObject.transform.parent = other.gameObject.transform.parent;
+
+    }
+
+    void OnTriggerStay(Collider other) {
+
+    }
+
+    void OnTriggerExit(Collider other) {
+        if (other.CompareTag("MovingPlane"))
+            playerController.gameObject.transform.parent = null;
     }
 
 }
