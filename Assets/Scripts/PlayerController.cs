@@ -75,9 +75,9 @@ public class PlayerController : MonoBehaviour {
                 Move(new Vector3(forward.x/2, speed/2, forward.z/2));
             else if (Input.GetKey(KeyCode.S)) {
                 if (!isGroud)
-                    Move(new Vector3(0, -speed/2, 0));
+                    Move(new Vector3(0, -speed/2,0));
                 else
-                    Move(new Vector3(0, 0, 0));
+                    Move(new Vector3(-forward.x, 0, -forward.z));
             }
             else
                 rb.velocity = new Vector3(0, 0, 0);
