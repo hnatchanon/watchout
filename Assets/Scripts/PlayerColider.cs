@@ -36,6 +36,8 @@ public class PlayerColider : MonoBehaviour {
         {
             playerController.SetState(PlayerController.playerState.StageClear);
         }
+
+        
     }
 
     void OnTriggerStay(Collider other)
@@ -45,10 +47,10 @@ public class PlayerColider : MonoBehaviour {
         {
             playerController.SetState(PlayerController.playerState.Claiming);
         }
-        //else
-        //{
-        //    playerController.setState(1);
-        //}
+
+        if (other.CompareTag("Stair"))
+            playerController.SetState(PlayerController.playerState.ClaimingStair);
+
     }
 
     void OnTriggerExit(Collider other)
@@ -60,6 +62,13 @@ public class PlayerColider : MonoBehaviour {
         if (other.CompareTag("VerticleObstrucle")) {
             playerController.SetState(PlayerController.playerState.Idle);
         }
+
+        if (other.CompareTag("Stair"))
+        {
+            playerController.SetState(PlayerController.playerState.Air);
+        }
+
+
 
     }
 }

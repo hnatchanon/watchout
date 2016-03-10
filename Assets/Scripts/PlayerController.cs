@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour {
     Rigidbody rb;
     SphereCollider co;
 
-    public enum playerState { Idle, Running, Claiming, Air, Dead, StageClear };
+    public enum playerState { Idle, Running, Claiming, Air, Dead, StageClear, ClaimingStair };
 
     public Text[] arr_text;
 
@@ -54,7 +54,8 @@ public class PlayerController : MonoBehaviour {
 
 
     public void checkInput() {
-        if (state == playerState.Idle || state == playerState.Air) {
+        Debug.Log("Check Input");
+        if (state == playerState.Idle || state == playerState.Air || state == playerState.ClaimingStair) {
             if (Input.GetKey(KeyCode.W)) {
                 Move(forward);
             }
@@ -78,6 +79,8 @@ public class PlayerController : MonoBehaviour {
                 else
                     Move(new Vector3(0, 0, 0));
             }
+            else
+                rb.velocity = new Vector3(0, 0, 0);
         }
         if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Alpha2)) && state != playerState.Claiming && state != playerState.Air) {
             state = playerState.Air;
@@ -94,6 +97,11 @@ public class PlayerController : MonoBehaviour {
             currentSpeed = speed * runningMultiplyer;
         else
             currentSpeed = speed;
+
+        if(state == playerState.ClaimingStair)
+        {
+            currentSpeed *= 3;
+        }
     }
 
     public void CheckFall() {
@@ -110,6 +118,11 @@ public class PlayerController : MonoBehaviour {
     public void SetState(playerState state) {
         if (this.state == state) {
             return;
+        }
+
+        if (state == playerState.Claiming)
+        {
+            rb.useGravity = false;
         }
 
         if (this.state == playerState.Claiming) {
