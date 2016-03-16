@@ -19,7 +19,7 @@ public class MapGenerator : MonoBehaviour {
 		{ 0, 50, 10, 10, 1011, 10, 10, 52, 0},
 		{ 0,  0,  0, 10,   10, 10,  0,  0, 0},
 		{ 0,  0,  0,  0,   10,  0,  0,  0, 0},
-		{ 0,  0,  0,  0, 2010,  0,  0,  0, 0},
+		{ 0,  0,  0,  0,   20,  0,  0,  0, 0},
 		{ 0,  0,  0,  0,    0,  0,  0,  0, 0}
 	},
 	{//floor 2
@@ -57,24 +57,22 @@ public class MapGenerator : MonoBehaviour {
                     if ((numbers[i, j, k] / 10) % 100 == 3) {
                         MovingPlane mp = (MovingPlane)Instantiate(movingPlane, new Vector3(j * 4, i * 4, k * 4), direction[numbers[i, j, k] % 10]);
                         if (numbers[i, j, k] % 10 == 0) {
-                            mp.direction = new Vector3(1f, 0f, 0f);
+                            mp.direction = new Vector3(2f, 0f, 0f);
                         }
                         else if (numbers[i, j, k] % 10 == 1) {
-                            mp.direction = new Vector3(0f, 0f, 1f);
+                            mp.direction = new Vector3(0f, 0f, 2f);
                         }
                         else if (numbers[i, j, k] % 10 == 2) {
-                            mp.direction = new Vector3(-1f, 0f, 0f);
+                            mp.direction = new Vector3(-2f, 0f, 0f);
                         }
                         else if (numbers[i, j, k] % 10 == 3) {
-                            mp.direction = new Vector3(0f, 0f, -1f);
+                            mp.direction = new Vector3(0f, 0f, -2f);
                         }
-                        mp.movingLength = 2;
                     }
                     // moving plane |
                     if ((numbers[i, j, k] / 10) % 100 == 4) {
                         MovingPlane mp = (MovingPlane)Instantiate(movingPlane, new Vector3(j * 4, i * 4, k * 4), direction[numbers[i, j, k] % 10]);
                         mp.direction = new Vector3(0f, 1f, 0f);
-                        mp.movingLength = 1;
                     }
                     // slope
                     if ((numbers[i, j, k] / 10) % 100 == 5) {

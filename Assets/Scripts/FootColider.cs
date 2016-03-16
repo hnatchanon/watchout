@@ -13,11 +13,12 @@ public class FootColider : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Foot Colider: " + other.name);
         if (other.CompareTag("Floor"))
             playerController.SetState(PlayerController.playerState.Idle);
-        if (other.CompareTag("MovingPlane"))
+        if (other.CompareTag("MovingPlane")) {
+            Debug.Log("HIT");
             playerController.gameObject.transform.parent = other.gameObject.transform.parent;
+        }
 
     }
 

@@ -29,7 +29,7 @@ public class PlayerColider : MonoBehaviour {
         if (other.CompareTag("Star"))
         {
             other.gameObject.SetActive(false);
-            playerController.GetStar();
+            playerController.CollectStar();
         }
 
         if(other.CompareTag("Goal"))

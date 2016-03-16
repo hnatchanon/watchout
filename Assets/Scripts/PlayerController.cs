@@ -30,8 +30,6 @@ public class PlayerController : MonoBehaviour {
 
     void Update() {
 
-        Debug.Log(state);
-
         forward = new Vector3(head.forward.x, 0, head.forward.z);
         forward = forward / forward.magnitude;
 
@@ -39,7 +37,6 @@ public class PlayerController : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        Debug.Log(isGroud);
         CheckSprint();
         checkInput();
         CheckFall();
@@ -54,7 +51,6 @@ public class PlayerController : MonoBehaviour {
 
 
     public void checkInput() {
-        Debug.Log("Check Input");
         if (state == playerState.Idle || state == playerState.Air || state == playerState.ClaimingStair) {
             if (Input.GetKey(KeyCode.W)) {
                 Move(forward);
@@ -100,7 +96,7 @@ public class PlayerController : MonoBehaviour {
 
         if(state == playerState.ClaimingStair)
         {
-            currentSpeed *= 3;
+            currentSpeed = speed * 3;
         }
     }
 
@@ -111,7 +107,7 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    public void GetStar() {
+    public void CollectStar() {
         Score++;
     }
 

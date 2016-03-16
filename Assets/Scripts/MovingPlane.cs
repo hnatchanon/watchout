@@ -4,7 +4,6 @@ using System.Collections;
 public class MovingPlane : MonoBehaviour {
 
     public float gridSize = 4f;
-    public float movingLength;
     public Vector3 direction;
     public float speed = 1f;
 
@@ -12,7 +11,6 @@ public class MovingPlane : MonoBehaviour {
     private float __i = 0f;
     private float __x, __y, __z;
     private Rigidbody rb;
-    private Vector3 destination;
 
     // Use this for initialization
     void Start() {
@@ -20,23 +18,21 @@ public class MovingPlane : MonoBehaviour {
         __x = transform.position.x;
         __y = transform.position.y;
         __z = transform.position.z;
-
-        destination = transform.position + direction * movingLength;
     }
 
     // Update is called once per frame
     void Update() {
         float tmp = (__i += 0.01f * speed) % 2;
         if (tmp < 1) {
-            addedPosition = tmp * gridSize * movingLength;
+            addedPosition = tmp * gridSize;
         }
         else {
-            addedPosition = (2 - tmp) * gridSize * movingLength;
+            addedPosition = (2 - tmp) * gridSize;
         }
 
-        float tmpX = __x + (addedPosition * direction.x);
-        float tmpY = __y + (addedPosition * direction.y);
-        float tmpZ = __z + (addedPosition * direction.z);
+        float tmpX = __x + (addedPosition * direction.x * gridSize);
+        float tmpY = __y + (addedPosition * direction.y * gridSize);
+        float tmpZ = __z + (addedPosition * direction.z * gridSize);
         //rb.MovePosition(new Vector3(tmpX, tmpY, tmpZ));
 
         transform.position = new Vector3(tmpX, tmpY, tmpZ);
