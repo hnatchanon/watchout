@@ -29,7 +29,6 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Update() {
-
         forward = new Vector3(head.forward.x, 0, head.forward.z);
         forward = forward / forward.magnitude;
 
@@ -37,20 +36,15 @@ public class PlayerController : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        CheckSprint();
-        checkInput();
+        CheckSpeed();
+        CheckInput();
         CheckFall();
-    }
-
-    void OnTriggerEnter(Collider other) {
-        if (other.gameObject.CompareTag("box")) {
-            //other.gameObject.SetActive (false);
-            Application.LoadLevel("Level Select");
-        }
+        Debug.Log(state);
     }
 
 
-    public void checkInput() {
+
+    public void CheckInput() {
         if (state == playerState.Idle || state == playerState.Air || state == playerState.ClaimingStair) {
             if (Input.GetKey(KeyCode.W)) {
                 Move(forward);
@@ -78,9 +72,15 @@ public class PlayerController : MonoBehaviour {
             else
                 rb.velocity = new Vector3(0, 0, 0);
         }
+
         if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Alpha2)) && state != playerState.Claiming && state != playerState.Air) {
             state = playerState.Air;
             rb.AddForce(jumpForce * Vector3.up);
+        }
+
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            RestartScene();
         }
     }
 
@@ -88,7 +88,7 @@ public class PlayerController : MonoBehaviour {
         rb.MovePosition(transform.position + direction * Time.deltaTime * currentSpeed);
     }
 
-    public void CheckSprint() {
+    public void CheckSpeed() {
         if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.Alpha5))
             currentSpeed = speed * runningMultiplyer;
         else
@@ -97,6 +97,11 @@ public class PlayerController : MonoBehaviour {
         if(state == playerState.ClaimingStair)
         {
             currentSpeed = speed * 3;
+        }
+
+        if(state == playerState.Air)
+        {
+            currentSpeed = speed * 2;
         }
     }
 
@@ -126,6 +131,12 @@ public class PlayerController : MonoBehaviour {
         }
 
         this.state = state;
+    }
+
+    public void RestartScene()
+    {
+
+        Application.LoadLevel(Application.loadedLevelName);
     }
 
 }

@@ -37,7 +37,12 @@ public class PlayerColider : MonoBehaviour {
             playerController.SetState(PlayerController.playerState.StageClear);
         }
 
-        
+        if (other.gameObject.CompareTag("box"))
+        {
+            //other.gameObject.SetActive (false);
+            Application.LoadLevel("Level Select");
+        }
+
     }
 
     void OnTriggerStay(Collider other)
