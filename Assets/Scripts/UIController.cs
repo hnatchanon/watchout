@@ -40,14 +40,13 @@ public class UIController : MonoBehaviour {
 
 			if (blist [i] == cur) {
 				preIndex = i;
-				//Debug.Log (i);
 				break;
 			}
 		}
 	}
 	
 	void Update(){
-		if (Input.GetKeyDown(KeyCode.UpArrow)) {
+		if (Input.GetKeyDown(KeyCode.RightArrow)) {
 			FindIndex ();
 
 			if (preIndex + 1 > blist.Count-1) 
@@ -61,7 +60,7 @@ public class UIController : MonoBehaviour {
 			pre.GetComponent<Image> ().color = Color.grey;
 
 		}
-		if (Input.GetKeyDown(KeyCode.DownArrow)) {
+		if (Input.GetKeyDown(KeyCode.LeftArrow)) {
 			FindIndex ();
 			if (preIndex - 1 < 0) 
 				cur = blist [2];
@@ -76,6 +75,7 @@ public class UIController : MonoBehaviour {
 
 		}
 		if (Input.GetKeyDown(KeyCode.Space)) {
+			Debug.Log (cur.name);
 		   changeScence ();
 		}
 			
