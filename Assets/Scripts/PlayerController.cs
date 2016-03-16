@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour {
 
     public bool isGroud = false;
 
+    public GameObject result;
+
     float currentSpeed;
 
     private playerState state = playerState.Idle;
@@ -26,6 +28,7 @@ public class PlayerController : MonoBehaviour {
     void Start() {
         rb = GetComponent<Rigidbody>();
         co = GetComponent<SphereCollider>();
+        result.SetActive(false);
     }
 
     void Update() {
@@ -107,8 +110,8 @@ public class PlayerController : MonoBehaviour {
 
     public void CheckFall() {
         if (transform.position.y <= -50) {
-            //Dead >> Result popup
-            rb.MovePosition(new Vector3(0, 1, 0));
+            result.SetActive(true);
+            //rb.MovePosition(new Vector3(0, 1, 0));
         }
     }
 
@@ -138,5 +141,6 @@ public class PlayerController : MonoBehaviour {
 
         Application.LoadLevel(Application.loadedLevelName);
     }
+
 
 }
