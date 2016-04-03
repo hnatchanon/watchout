@@ -16,10 +16,16 @@ public class UIController : MonoBehaviour {
 
 
 
-	public void changeScence()
+	public void changeScence(string current_name)
 	{
-		Application.LoadLevel ("Main Menu");
-	}
+        if (current_name == "Button1")
+            Application.LoadLevel("Stage 2");
+        else if (current_name == "Button2")
+            Application.LoadLevel(Application.loadedLevelName);
+        else if (current_name == "Button3")
+            Application.LoadLevel("Main Menu");
+
+    }
 	void Start()
 	{
 		blist.Add (s1);
@@ -76,7 +82,7 @@ public class UIController : MonoBehaviour {
 		}
 		if (Input.GetKeyDown(KeyCode.Space)) {
 			Debug.Log (cur.name);
-		   changeScence ();
+		   changeScence (cur.name);
 		}
 			
 	}

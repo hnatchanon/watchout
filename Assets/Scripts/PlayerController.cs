@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour {
     void Start() {
         rb = GetComponent<Rigidbody>();
         co = GetComponent<SphereCollider>();
-        result.SetActive(false);
+            result.SetActive(false);
     }
 
     void Update() {
