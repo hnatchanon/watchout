@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour {
     float currentSpeed;
 
     private playerState state = playerState.Idle;
-    private int Score = 0;
+    private int starCount = 0;
 
     void Start() {
         rb = GetComponent<Rigidbody>();
@@ -42,7 +42,6 @@ public class PlayerController : MonoBehaviour {
         CheckSpeed();
         CheckInput();
         CheckFall();
-        Debug.Log(state);
     }
 
 
@@ -116,7 +115,11 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void CollectStar() {
-        Score++;
+        starCount++;
+    }
+
+    public int GetStarCount() {
+        return starCount;
     }
 
     public void SetState(playerState state) {
