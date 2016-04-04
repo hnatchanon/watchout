@@ -19,20 +19,37 @@ public class MainController : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         if (state == playerState.MainMenu) {
-            if (Input.GetKeyDown(KeyCode.Q) && gazed) {
+            if (Input.GetKeyDown(KeyCode.A) && gazed) {
                 switch (scene) {
-                    case "Game":
+                    case "play game":
                         state = playerState.MovingToLevelSelect;
                         mainMenu.SetActive(false);
                         break;
                 }
             }
         }
-        else if (state == playerState.MovingToLevelSelect || Input.GetKeyDown(KeyCode.S)) {
+        else if (state == playerState.MovingToLevelSelect) {
             cardboard.transform.position = Vector3.Lerp(cardboard.transform.position, new Vector3(0, 1, 12), 0.5f * Time.deltaTime);
-            if (cardboard.transform.position.z >= 12f) {
+            if (cardboard.transform.position.z >= 10f) {
                 state = playerState.LevelSelect;
                 levelSelectMenu.SetActive(true);
+            }
+        }
+        else if (state == playerState.LevelSelect) {
+            if (Input.GetKeyDown(KeyCode.A) && gazed) {
+                switch (scene) {
+                    case "back":
+                        state = playerState.MovingToMainMenu;
+                        levelSelectMenu.SetActive(false);
+                        break;
+                }
+            }
+        }
+        else if (state == playerState.MovingToMainMenu) {
+            cardboard.transform.position = Vector3.Lerp(cardboard.transform.position, new Vector3(0, 1, -2), 0.5f * Time.deltaTime);
+            if (cardboard.transform.position.z <= 0f) {
+                state = playerState.MainMenu;
+                mainMenu.SetActive(true);
             }
         }
 
