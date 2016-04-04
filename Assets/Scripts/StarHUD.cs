@@ -18,5 +18,6 @@ public class StarHUD : MonoBehaviour {
     void Update() {
         starCount = player.GetStarCount();
         text.text = string.Format("Star: {0}",starCount);
+        Debug.Log(starCount);
     }
 }
