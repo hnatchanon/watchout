@@ -17,6 +17,8 @@ public class PlayerColider : MonoBehaviour {
     void OnTriggerEnter(Collider other)
     {
 
+        Debug.Log(other.name);
+
         if (other.CompareTag("Floor"))
             playerController.isGroud = true;
 
@@ -43,10 +45,20 @@ public class PlayerColider : MonoBehaviour {
             Application.LoadLevel("Level Select");
         }
 
+        if (other.gameObject.CompareTag("Warp"))
+        {
+            Warp warp = other.gameObject.GetComponent<Warp>();
+
+            playerController.SetState(PlayerController.playerState.Teleporting);
+            playerController.setTeleportTimer(warp.DestinationPosition, other.gameObject.transform.position);
+            
+        }
+
     }
 
     void OnTriggerStay(Collider other)
     {
+
 
         if (other.CompareTag("VerticleObstrucle"))
         {
@@ -56,6 +68,8 @@ public class PlayerColider : MonoBehaviour {
         if (other.CompareTag("Stair"))
             playerController.SetState(PlayerController.playerState.ClaimingStair);
 
+        if (other.CompareTag("Warp"))
+            playerController.SetState(PlayerController.playerState.Teleporting);
     }
 
     void OnTriggerExit(Collider other)

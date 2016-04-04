@@ -7,10 +7,11 @@ public class PlayerController : MonoBehaviour {
     Rigidbody rb;
     SphereCollider co;
 
-    public enum playerState { Idle, Running, Claiming, Air, Dead, StageClear, ClaimingStair };
+    public enum playerState { Idle, Running, Claiming, Air, Dead, StageClear, ClaimingStair, Teleporting };
 
     public Text[] arr_text;
 
+    private float teleportTimeLeft;
     public Transform head;
     public float speed = 1f;
     public float runningMultiplyer = 2f;
@@ -24,6 +25,8 @@ public class PlayerController : MonoBehaviour {
 
     private playerState state = playerState.Idle;
     private int starCount = 0;
+    private Vector3 destinationPosition;
+    private Vector3 lerpPosition;
 
     void Start() {
         rb = GetComponent<Rigidbody>();
@@ -42,6 +45,7 @@ public class PlayerController : MonoBehaviour {
         CheckSpeed();
         CheckInput();
         CheckFall();
+        CheckTeleportTimer();
     }
 
 
@@ -75,7 +79,7 @@ public class PlayerController : MonoBehaviour {
                 rb.velocity = new Vector3(0, 0, 0);
         }
 
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Alpha2)) && state != playerState.Claiming && state != playerState.Air) {
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Alpha2)) && state != playerState.Claiming && state != playerState.Air && state != playerState.Teleporting) {
             state = playerState.Air;
             rb.AddForce(jumpForce * Vector3.up);
         }
@@ -145,5 +149,29 @@ public class PlayerController : MonoBehaviour {
         Application.LoadLevel(Application.loadedLevelName);
     }
 
+    public void CheckTeleportTimer()
+    {
+        if(teleportTimeLeft != -99)
+        {
+            if (teleportTimeLeft > 0)
+            {
+                teleportTimeLeft -= Time.deltaTime;
+                transform.position = Vector3.Lerp(transform.position, lerpPosition, 1*Time.deltaTime);
+            }
+            if(teleportTimeLeft <= 0)
+            {
+                teleportTimeLeft = -99;
+                transform.position = destinationPosition;
+                SetState(playerState.Idle);
+            }
+        }
+    }
+
+    public void setTeleportTimer(Vector3 destinationPosition, Vector3 lerpPosition)
+    {
+        teleportTimeLeft = 3;
+        this.destinationPosition = destinationPosition;
+        this.lerpPosition = lerpPosition;
+    }
 
 }
