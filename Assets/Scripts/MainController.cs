@@ -1,3 +1,4 @@
+
 ﻿using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -9,18 +10,12 @@ public class MainController : MonoBehaviour {
     public GameObject cardboard;
     public GameObject mainMenu, levelSelectMenu;
 
-
-
-
     public enum playerState { MainMenu, LevelSelect, MovingToLevelSelect, MovingToMainMenu }
 
     private playerState state;
 
     void Start() {
-		//rend = GetComponent<Renderer>();
-		state = playerState.MainMenu;
-		//rend.material.color = colorStart;
-	
+        state = playerState.MainMenu;
     }
     // Update is called once per frame
     void Update() {
@@ -30,6 +25,12 @@ public class MainController : MonoBehaviour {
                     case "play game":
                         state = playerState.MovingToLevelSelect;
                         mainMenu.SetActive(false);
+                        break;
+                    case "s01l01":
+                        Debug.Log("Stage 1, Level 1");
+                        MapGenerator.numbers = MapGenerator.numbers1;
+                        Application.LoadLevel("Generator");
+                        Debug.Log(Application.loadedLevelName);
                         break;
                 }
             }
@@ -53,30 +54,24 @@ public class MainController : MonoBehaviour {
         }
         else if (state == playerState.MovingToMainMenu) {
             cardboard.transform.position = Vector3.Lerp(cardboard.transform.position, new Vector3(0, 1, -2), 0.5f * Time.deltaTime);
-            if (cardboard.transform.position.z <= 0f) { 
-                state = playerState.MainMenu;         
-                mainMenu.SetActive(true);          
+            if (cardboard.transform.position.z <= 0f) {
+                state = playerState.MainMenu;
+                mainMenu.SetActive(true);
             }
         }
 
-        Debug.Log(state);
+        Debug.Log("state: " + state);
     }
 
 
     public void OnPointerEnter(string name) {
-        Debug.Log ("OnPointEnter");
+        Debug.Log("On Pointer Enter: " + name);
         gazed = true;
         scene = name;
-
-
     }
 
     public void OnPointerExit() {
         gazed = false;
-
     }
-
-
-
 
 }
