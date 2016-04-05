@@ -25,6 +25,12 @@ public class MainController : MonoBehaviour {
                         state = playerState.MovingToLevelSelect;
                         mainMenu.SetActive(false);
                         break;
+                    case "s01l01":
+                        Debug.Log("Stage 1, Level 1");
+                        MapGenerator.numbers = MapGenerator.numbers1;
+                        Application.LoadLevel("Generator");
+                        Debug.Log(Application.loadedLevelName);
+                        break;
                 }
             }
         }
@@ -53,12 +59,12 @@ public class MainController : MonoBehaviour {
             }
         }
 
-        Debug.Log(state);
+        Debug.Log("state: " + state);
     }
 
 
     public void OnPointerEnter(string name) {
-        //Debug.Log ("OnPointEnter");
+        Debug.Log("On Pointer Enter: " + name);
         gazed = true;
         scene = name;
     }
