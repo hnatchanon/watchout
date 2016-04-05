@@ -5,19 +5,50 @@ using System.Collections.Generic;
 
 public class ButtonController : MonoBehaviour {
 
-	public Button s1;
+	public Image hilight;
+    public Button[] menus;
+    public Text[] texts;
+    public Button s1;
 	public Button s2;
 	public Button s3;
-	private Button cur;
-	private Button pre;
-	private int preIndex;
-	List<Button> blist = new List<Button>();
 
-
-
-
-	public void changeScence(string current_name)
+    private int index;
+	
+	void Start()
 	{
+        index = 0;
+        SetHilight(0);
+		//blist.Add (s1);
+		//blist.Add (s2);
+		//blist.Add (s3);
+		//cur = blist [0];
+		//cur.GetComponent<Image> ().color = Color.blue;
+        //hilight.rectTransform;
+		//Debug.Log (cur);
+		//Debug.Log ("POPPY");
+	   
+	}
+
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.DownArrow) && index < menus.Length-1) {
+            SetHilight(+1);
+        }
+        if (Input.GetKeyDown(KeyCode.UpArrow) && index > 0) {
+            SetHilight(-1);
+        }
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            Debug.Log(index);
+            //changeScence(cur.name);
+        }
+    }
+    private void SetHilight(int i) {
+        texts[index].color = Color.white;
+        index += i;
+        texts[index].color = Color.black;
+        hilight.rectTransform.position = menus[index].targetGraphic.rectTransform.position + new Vector3(0f, -0.02f, 0f);
+    }
+
+    public void changeScence(string current_name) {
         if (current_name == "Button1")
             Application.LoadLevel("Stage 2");
         else if (current_name == "Button2")
@@ -26,64 +57,4 @@ public class ButtonController : MonoBehaviour {
             Application.LoadLevel("Main Menu");
 
     }
-	void Start()
-	{
-		blist.Add (s1);
-		blist.Add (s2);
-		blist.Add (s3);
-		foreach (Button b in blist) {
-			b.GetComponent<Image> ().color = Color.grey;
-		}
-		cur = blist [0];
-		cur.GetComponent<Image> ().color = Color.blue;
-		//Debug.Log (cur);
-		//Debug.Log ("POPPY");
-	   
-	}
-
-	void FindIndex (){
-		for (int i = 0; i < blist.Count; i++) {
-
-			if (blist [i] == cur) {
-				preIndex = i;
-				break;
-			}
-		}
-	}
-	
-	void Update(){
-		if (Input.GetKeyDown(KeyCode.DownArrow)) {
-			FindIndex ();
-
-			if (preIndex + 1 > blist.Count-1) 
-				cur = blist [0];
-			else 
-				cur = blist [preIndex + 1];
-			
-			
-			pre = blist[preIndex];
-			cur.GetComponent<Image> ().color = Color.blue;
-			pre.GetComponent<Image> ().color = Color.grey;
-
-		}
-		if (Input.GetKeyDown(KeyCode.UpArrow)) {
-			FindIndex ();
-			if (preIndex - 1 < 0) 
-				cur = blist [2];
-			else 
-				cur = blist[preIndex - 1];
-			
-
-			pre = blist[preIndex];
-			cur.GetComponent<Image> ().color = Color.blue;
-			pre.GetComponent<Image> ().color = Color.grey;
-		
-
-		}
-		if (Input.GetKeyDown(KeyCode.Space)) {
-			Debug.Log (cur.name);
-		   changeScence (cur.name);
-		}
-			
-	}
 }

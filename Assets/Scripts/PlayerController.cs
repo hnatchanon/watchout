@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        Debug.Log("Player State: " + state);
+        //Debug.Log("Player State: " + state);
         CheckSpeed();
         CheckInput();
         CheckFall();
@@ -120,7 +120,7 @@ public class PlayerController : MonoBehaviour {
         {
             currentSpeed = speed * 1;
         }
-        Debug.Log(currentSpeed);
+        //Debug.Log(currentSpeed);
     }
 
     public void CheckFall() {
