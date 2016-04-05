@@ -16,9 +16,6 @@ public class PlayerColider : MonoBehaviour {
     // Use this for initialization
     void OnTriggerEnter(Collider other)
     {
-
-        Debug.Log(other.name);
-
         if (other.CompareTag("Floor"))
             playerController.isGroud = true;
 
