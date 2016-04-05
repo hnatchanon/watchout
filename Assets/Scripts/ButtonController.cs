@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-public class UIController : MonoBehaviour {
+public class ButtonController : MonoBehaviour {
 
 	public Button s1;
 	public Button s2;
@@ -35,7 +35,7 @@ public class UIController : MonoBehaviour {
 			b.GetComponent<Image> ().color = Color.grey;
 		}
 		cur = blist [0];
-		cur.GetComponent<Image> ().color = Color.green;
+		cur.GetComponent<Image> ().color = Color.blue;
 		//Debug.Log (cur);
 		//Debug.Log ("POPPY");
 	   
@@ -52,7 +52,7 @@ public class UIController : MonoBehaviour {
 	}
 	
 	void Update(){
-		if (Input.GetKeyDown(KeyCode.RightArrow)) {
+		if (Input.GetKeyDown(KeyCode.DownArrow)) {
 			FindIndex ();
 
 			if (preIndex + 1 > blist.Count-1) 
@@ -62,11 +62,11 @@ public class UIController : MonoBehaviour {
 			
 			
 			pre = blist[preIndex];
-			cur.GetComponent<Image> ().color = Color.green;
+			cur.GetComponent<Image> ().color = Color.blue;
 			pre.GetComponent<Image> ().color = Color.grey;
 
 		}
-		if (Input.GetKeyDown(KeyCode.LeftArrow)) {
+		if (Input.GetKeyDown(KeyCode.UpArrow)) {
 			FindIndex ();
 			if (preIndex - 1 < 0) 
 				cur = blist [2];
@@ -75,7 +75,7 @@ public class UIController : MonoBehaviour {
 			
 
 			pre = blist[preIndex];
-			cur.GetComponent<Image> ().color = Color.green;
+			cur.GetComponent<Image> ().color = Color.blue;
 			pre.GetComponent<Image> ().color = Color.grey;
 		
 
