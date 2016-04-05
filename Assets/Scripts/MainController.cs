@@ -1,4 +1,4 @@
-
+﻿
 ﻿using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -28,9 +28,18 @@ public class MainController : MonoBehaviour {
                         break;
                     case "s01l01":
                         Debug.Log("Stage 1, Level 1");
-                        MapGenerator.numbers = MapGenerator.numbers1;
+                        MapGenerator.numbers = MapDataArray.getData()[0][0];
                         Application.LoadLevel("Generator");
-                        Debug.Log(Application.loadedLevelName);
+                        break;
+                    case "s01l02":
+                        Debug.Log("Stage 1, Level 2");
+                        MapGenerator.numbers = MapDataArray.getData()[0][1];
+                        Application.LoadLevel("Generator");
+                        break;
+                    case "s01l03":
+                        Debug.Log("Stage 1, Level 3");
+                        MapGenerator.numbers = MapDataArray.getData()[0][2];
+                        Application.LoadLevel("Generator");
                         break;
                 }
             }

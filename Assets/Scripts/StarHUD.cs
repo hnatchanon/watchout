@@ -17,6 +17,6 @@ public class StarHUD : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         starCount = player.GetStarCount();
-        text.text = string.Format("Star: {0}",starCount);
+        text.text = string.Format("Ring: {0}",starCount);
     }
 }
