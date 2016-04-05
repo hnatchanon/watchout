@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour {
     Rigidbody rb;
     SphereCollider co;
 
-    public enum playerState { Idle, Running, Claiming, Air, Dead, StageClear, ClaimingStair, Teleporting };
+    public enum playerState { Idle, Running, Claiming, Air, Dead, StageClear, ClaimingStair, Teleporting, ForceWalk };
 
     public Text[] arr_text;
 
@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour {
     public float speed = 1f;
     public float runningMultiplyer = 2f;
     public float jumpForce = 100f;
+    
 
     public bool isGroud = false;
 
@@ -27,6 +28,8 @@ public class PlayerController : MonoBehaviour {
     private int starCount = 0;
     private Vector3 destinationPosition;
     private Vector3 lerpPosition;
+    private Vector3 ForceWalkForward;
+
 
     void Start() {
         Debug.Log("Gravity :" + Physics.gravity);
@@ -53,6 +56,7 @@ public class PlayerController : MonoBehaviour {
 
 
     public void CheckInput() {
+
         if (state == playerState.Idle || state == playerState.Air || state == playerState.ClaimingStair) {
             if (Input.GetKey(KeyCode.W)) {
                 Move(forward);
@@ -79,6 +83,11 @@ public class PlayerController : MonoBehaviour {
             }
             else
                 rb.velocity = new Vector3(0, 0, 0);
+        }
+
+        else if (state == playerState.ForceWalk)
+        {
+            Move(ForceWalkForward);
         }
 
         if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Alpha2)) && state != playerState.Claiming && state != playerState.Air && state != playerState.Teleporting && state != playerState.Claiming && state != playerState.ClaimingStair) {
@@ -177,4 +186,8 @@ public class PlayerController : MonoBehaviour {
         this.lerpPosition = lerpPosition;
     }
 
+    public void setForceWalkForward(Vector3 forward)
+    {
+        this.ForceWalkForward = forward;
+    }
 }
