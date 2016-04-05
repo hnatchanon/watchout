@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour {
 
     public Text[] arr_text;
 
-    private float teleportTimeLeft;
+    private float teleportTimeLeft = -99f;
     public Transform head;
     public float speed = 1f;
     public float runningMultiplyer = 2f;
