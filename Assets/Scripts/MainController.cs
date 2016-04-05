@@ -9,12 +9,18 @@ public class MainController : MonoBehaviour {
     public GameObject cardboard;
     public GameObject mainMenu, levelSelectMenu;
 
+
+
+
     public enum playerState { MainMenu, LevelSelect, MovingToLevelSelect, MovingToMainMenu }
 
     private playerState state;
 
     void Start() {
-        state = playerState.MainMenu;
+		//rend = GetComponent<Renderer>();
+		state = playerState.MainMenu;
+		//rend.material.color = colorStart;
+	
     }
     // Update is called once per frame
     void Update() {
@@ -47,9 +53,9 @@ public class MainController : MonoBehaviour {
         }
         else if (state == playerState.MovingToMainMenu) {
             cardboard.transform.position = Vector3.Lerp(cardboard.transform.position, new Vector3(0, 1, -2), 0.5f * Time.deltaTime);
-            if (cardboard.transform.position.z <= 0f) {
-                state = playerState.MainMenu;
-                mainMenu.SetActive(true);
+            if (cardboard.transform.position.z <= 0f) { 
+                state = playerState.MainMenu;         
+                mainMenu.SetActive(true);          
             }
         }
 
@@ -58,13 +64,19 @@ public class MainController : MonoBehaviour {
 
 
     public void OnPointerEnter(string name) {
-        //Debug.Log ("OnPointEnter");
+        Debug.Log ("OnPointEnter");
         gazed = true;
         scene = name;
+
+
     }
 
     public void OnPointerExit() {
         gazed = false;
+
     }
+
+
+
 
 }
