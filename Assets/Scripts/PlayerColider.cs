@@ -55,7 +55,11 @@ public class PlayerColider : MonoBehaviour {
 
     void OnTriggerStay(Collider other)
     {
-
+        if(other.CompareTag("ForceWalk"))
+        {
+            playerController.SetState(PlayerController.playerState.ForceWalk);
+            playerController.setForceWalkForward(other.transform.forward);
+        }
 
         if (other.CompareTag("VerticleObstrucle"))
         {
@@ -72,6 +76,9 @@ public class PlayerColider : MonoBehaviour {
     void OnTriggerExit(Collider other)
     {
 
+        if (other.CompareTag("ForceWalk"))
+            playerController.SetState(PlayerController.playerState.Idle);
+
         if (other.CompareTag("Floor"))
             playerController.isGroud = false;
 
@@ -81,7 +88,7 @@ public class PlayerColider : MonoBehaviour {
 
         if (other.CompareTag("Stair"))
         {
-            playerController.SetState(PlayerController.playerState.Air);
+            playerController.SetState(PlayerController.playerState.Idle);
         }
 
 
