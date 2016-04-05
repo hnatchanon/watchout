@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour {
     private Vector3 lerpPosition;
 
     void Start() {
+        Debug.Log("Gravity :" + Physics.gravity);
         rb = GetComponent<Rigidbody>();
         co = GetComponent<SphereCollider>();
             result.SetActive(false);
@@ -42,6 +43,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     void FixedUpdate() {
+        Debug.Log("Player State: " + state);
         CheckSpeed();
         CheckInput();
         CheckFall();
@@ -79,7 +81,7 @@ public class PlayerController : MonoBehaviour {
                 rb.velocity = new Vector3(0, 0, 0);
         }
 
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Alpha2)) && state != playerState.Claiming && state != playerState.Air && state != playerState.Teleporting) {
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Alpha2)) && state != playerState.Claiming && state != playerState.Air && state != playerState.Teleporting && state != playerState.Claiming && state != playerState.ClaimingStair) {
             state = playerState.Air;
             rb.AddForce(jumpForce * Vector3.up);
         }
@@ -102,13 +104,14 @@ public class PlayerController : MonoBehaviour {
 
         if(state == playerState.ClaimingStair)
         {
-            currentSpeed = speed * 3;
+            currentSpeed = speed * 2.5f;
         }
 
         if(state == playerState.Air)
         {
-            currentSpeed = speed * 2;
+            currentSpeed = speed * 1;
         }
+        Debug.Log(currentSpeed);
     }
 
     public void CheckFall() {
