@@ -20,7 +20,7 @@ public class MainController : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         if (state == playerState.MainMenu) {
-            if (Input.GetKeyDown(KeyCode.A) && gazed) {
+            if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Alpha2)) && gazed) {
                 switch (scene) {
                     case "play game":
                         state = playerState.MovingToLevelSelect;
