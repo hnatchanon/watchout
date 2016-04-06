@@ -33,7 +33,10 @@ public class PlayerColider : MonoBehaviour {
 
         if(other.CompareTag("Goal"))
         {
-            playerController.SetState(PlayerController.playerState.StageClear);
+            if(playerController.GetStarCount() == 3)
+                playerController.SetState(PlayerController.playerState.StageClear);
+            //else
+                // If not 3 star
         }
 
         if (other.gameObject.CompareTag("box"))
@@ -58,7 +61,9 @@ public class PlayerColider : MonoBehaviour {
         if(other.CompareTag("ForceWalk"))
         {
             playerController.SetState(PlayerController.playerState.ForceWalk);
-            playerController.setForceWalkForward(other.transform.forward);
+            Vector3 forward = other.transform.forward;
+            Vector3 dir = new Vector3(forward.z, 0f, -forward.x);
+            playerController.setForceWalkForward(dir);
         }
 
         if (other.CompareTag("VerticleObstrucle"))
