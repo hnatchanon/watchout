@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour {
     Rigidbody rb;
     SphereCollider co;
 
-    public enum playerState { Idle, Running, Claiming, Air, Dead, StageClear, ClaimingStair, Teleporting, ForceWalk };
+    public enum playerState { Idle, Running, Claiming, Air, Dead, StageClear, ClaimingStair, Teleporting, ForceWalk, StageStart };
 
     public Text[] arr_text;
 
@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour {
     public Transform head;
     public float speed = 1f;
     public float runningMultiplyer = 2f;
-    public float jumpForce = 100f;
+    public float jumpForce = 125f;
 
 
     public bool isGroud = false;
@@ -25,20 +25,29 @@ public class PlayerController : MonoBehaviour {
 
     float currentSpeed;
 
-    private playerState state = playerState.Idle;
+    private playerState state = playerState.StageStart;
     private int starCount = 0;
     private Vector3 destinationPosition;
     private Vector3 lerpPosition;
     private Vector3 ForceWalkForward;
+
+    private float StartStageTimeLeft;
     
 
 
     void Start() {
-        Debug.Log("Gravity :" + Physics.gravity);
+        state = playerState.StageStart;
+        Freeze();
         rb = GetComponent<Rigidbody>();
         co = GetComponent<SphereCollider>();
         result.SetActive(false);
         dead.SetActive(false);
+    }
+
+    private void Freeze()
+    {
+        state = playerState.StageStart;
+        StartStageTimeLeft = 3f;
     }
 
     void Update() {
@@ -50,29 +59,48 @@ public class PlayerController : MonoBehaviour {
 
     void FixedUpdate() {
         //Debug.Log("Player State: " + state);
+
+        CheckFreeze();
         CheckSpeed();
         CheckInput();
         CheckFall();
         CheckTeleportTimer();
+        CheckLerpToGoal();
     }
 
+    private void CheckLerpToGoal()
+    {
+        if (state == playerState.StageClear)
+        {
+            transform.position = Vector3.Lerp(transform.position, lerpPosition, 1 * Time.deltaTime);
+            Debug.Log(transform.position);
+            Debug.Log(lerpPosition);
+            float tranX = transform.position.x;
+            float tranZ = transform.position.z;
+            float lerpX = lerpPosition.x;
+            float lerpZ = lerpPosition.z;
+            if(Math.Abs(tranX - lerpX) <= 0.01 && Math.Abs(tranZ - lerpZ) <= 0.01)
+                result.SetActive(true);
+        }
+    }
 
+    private void CheckFreeze()
+    {
+        if (StartStageTimeLeft == -99)
+            return;
+
+        if (StartStageTimeLeft < 0)
+        {
+            StartStageTimeLeft = -99;
+            state = playerState.Idle;
+        }
+        else
+            StartStageTimeLeft -= Time.deltaTime;
+    }
 
     public void CheckInput() {
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Debug.Log(Time.timeScale + "1");
-            if (Time.timeScale == 1)
-            {
-                Time.timeScale = 0;
-            }
-            else
-            {
-                Time.timeScale = 1;
-            }
-            Debug.Log(Time.timeScale + "2");
-        }
+
 
         if (state == playerState.Idle || state == playerState.Air || state == playerState.ClaimingStair) {
             if (Input.GetKey(KeyCode.W)) {
@@ -106,7 +134,7 @@ public class PlayerController : MonoBehaviour {
             Move(ForceWalkForward);
         }
 
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Alpha2)) && state != playerState.Claiming && state != playerState.Air && state != playerState.Teleporting && state != playerState.Claiming && state != playerState.ClaimingStair) {
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Alpha2)) && state != playerState.Claiming && state != playerState.Air && state != playerState.Teleporting && state != playerState.Claiming && state != playerState.ClaimingStair && state != playerState.ForceWalk && state != playerState.StageClear) {
             state = playerState.Air;
             rb.AddForce(jumpForce * Vector3.up);
         }
@@ -128,7 +156,10 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void CheckSpeed() {
-        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.Alpha5))
+        
+
+
+        if ((Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.Alpha5)) && state == playerState.Idle)
             currentSpeed = speed * runningMultiplyer;
         else
             currentSpeed = speed;
@@ -140,6 +171,9 @@ public class PlayerController : MonoBehaviour {
         if (state == playerState.Air) {
             currentSpeed = speed * 1;
         }
+
+        if (state == playerState.ForceWalk)
+            currentSpeed = speed * 1.5f;
         //Debug.Log(currentSpeed);
     }
 
@@ -160,7 +194,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void SetState(playerState state) {
-        if (this.state == state) {
+        if (this.state == state || this.state == playerState.StageStart || this.state == playerState.Dead || this.state == playerState.StageClear || this.state == playerState.Teleporting) {
             return;
         }
 
@@ -200,7 +234,14 @@ public class PlayerController : MonoBehaviour {
         this.lerpPosition = lerpPosition;
     }
 
-    public void setForceWalkForward(Vector3 forward) {
-        this.ForceWalkForward = forward;
+    public void LerpToGoal(Vector3 destination)
+    {
+        lerpPosition = destination;
+        
     }
+
+    public void setForceWalkForward(Vector3 forward) {
+        ForceWalkForward = forward;
+    }
+    
 }

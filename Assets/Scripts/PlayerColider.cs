@@ -35,7 +35,7 @@ public class PlayerColider : MonoBehaviour {
         {
             if (playerController.GetStarCount() == 3) {
                 playerController.SetState(PlayerController.playerState.StageClear);
-                playerController.result.SetActive(true);
+                playerController.LerpToGoal(other.gameObject.transform.position);
             }
             //else
                 // If not 3 star
