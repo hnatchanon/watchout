@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour {
     private Vector3 destinationPosition;
     private Vector3 lerpPosition;
     private Vector3 ForceWalkForward;
+    
 
 
     void Start() {
@@ -58,6 +59,20 @@ public class PlayerController : MonoBehaviour {
 
 
     public void CheckInput() {
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Debug.Log(Time.timeScale + "1");
+            if (Time.timeScale == 1)
+            {
+                Time.timeScale = 0;
+            }
+            else
+            {
+                Time.timeScale = 1;
+            }
+            Debug.Log(Time.timeScale + "2");
+        }
 
         if (state == playerState.Idle || state == playerState.Air || state == playerState.ClaimingStair) {
             if (Input.GetKey(KeyCode.W)) {
@@ -104,6 +119,8 @@ public class PlayerController : MonoBehaviour {
             SetState(PlayerController.playerState.StageClear);
             result.SetActive(true);
         }
+
+
     }
 
     private void Move(Vector3 direction) {

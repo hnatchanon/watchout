@@ -27,13 +27,13 @@ public class ButtonController : MonoBehaviour {
 	}
 
     void Update() {
-        if (Input.GetKeyDown(KeyCode.DownArrow) && index < menus.Length-1) {
+        if ((Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) && index < menus.Length-1) {
             SetHilight(+1);
         }
-        if (Input.GetKeyDown(KeyCode.UpArrow) && index > 0) {
+        if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && index > 0) {
             SetHilight(-1);
         }
-        if (Input.GetKeyDown(KeyCode.Space)) {
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Alpha2)) {
             Debug.Log(index);
 
             menus[index].onClick.Invoke();
