@@ -33,8 +33,10 @@ public class PlayerColider : MonoBehaviour {
 
         if(other.CompareTag("Goal"))
         {
-            if(playerController.GetStarCount() == 3)
+            if (playerController.GetStarCount() == 3) {
                 playerController.SetState(PlayerController.playerState.StageClear);
+                playerController.result.SetActive(true);
+            }
             //else
                 // If not 3 star
         }

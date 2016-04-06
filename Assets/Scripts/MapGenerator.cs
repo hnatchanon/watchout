@@ -15,7 +15,7 @@ public class MapGenerator : MonoBehaviour {
     public static int[,,] numbers;
     public static int level, stage;
 
-    public Transform player, floor, goal, star, slope;
+    public Transform player, floor, goal, star, slope, forceWalk, ladder, spring;
     public MovingPlane movingPlane;
 
     // Use this for initialization
@@ -34,29 +34,48 @@ public class MapGenerator : MonoBehaviour {
                         Transform tf = (Transform)Instantiate(goal, new Vector3(j * 4, i * 4, k * 4), direction[numbers[i, j, k] % 10]);
                     }
                     // moving plane ---
-                    if ((numbers[i, j, k] / 10) % 100 == 3) {
+                    if ((numbers[i, j, k] / 10) % 10 == 3) {
                         MovingPlane mp = (MovingPlane)Instantiate(movingPlane, new Vector3(j * 4, i * 4, k * 4), direction[numbers[i, j, k] % 10]);
-                        if (numbers[i, j, k] % 10 == 0) {
-                            mp.direction = new Vector3(2f, 0f, 0f);
-                        }
-                        else if (numbers[i, j, k] % 10 == 1) {
-                            mp.direction = new Vector3(0f, 0f, 2f);
+                        if (numbers[i, j, k] % 10 == 1) {
+                            mp.direction = new Vector3(1f, 0f, 0f);
                         }
                         else if (numbers[i, j, k] % 10 == 2) {
-                            mp.direction = new Vector3(-2f, 0f, 0f);
+                            mp.direction = new Vector3(0f, 0f, 1f);
                         }
                         else if (numbers[i, j, k] % 10 == 3) {
-                            mp.direction = new Vector3(0f, 0f, -2f);
+                            mp.direction = new Vector3(-1f, 0f, 0f);
                         }
+                        else if (numbers[i, j, k] % 10 == 0) {
+                            mp.direction = new Vector3(0f, 0f, -1f);
+                        }
+
+                        int length = numbers[i, j, k] % 100 / 10;
+                        mp.direction = mp.direction * length;
                     }
                     // moving plane |
-                    if ((numbers[i, j, k] / 10) % 100 == 4) {
+                    if ((numbers[i, j, k] / 10) % 10 == 4) {
                         MovingPlane mp = (MovingPlane)Instantiate(movingPlane, new Vector3(j * 4, i * 4, k * 4), direction[numbers[i, j, k] % 10]);
-                        mp.direction = new Vector3(0f, 1f, 0f);
+                        int length = numbers[i, j, k] % 100 / 10;
+                        mp.direction = new Vector3(0f, 1f, 0f) * length;
                     }
                     // slope
                     if ((numbers[i, j, k] / 10) % 100 == 5) {
                         Instantiate(slope, new Vector3(j * 4, i * 4, k * 4), direction[numbers[i, j, k] % 10]);
+                    }
+
+                    // force walk
+                    if ((numbers[i, j, k] / 10) % 100 == 6) {
+                        Instantiate(forceWalk, new Vector3(j * 4, i * 4, k * 4), direction[numbers[i, j, k] % 10]);
+                    }
+
+                    // ladder
+                    if ((numbers[i, j, k] / 10) % 100 == 7) {
+                        Instantiate(ladder, new Vector3(j * 4, i * 4, k * 4), direction[numbers[i, j, k] % 10]);
+                    }
+
+                    // spring
+                    if ((numbers[i, j, k] / 10) % 100 == 7) {
+                        Instantiate(spring, new Vector3(j * 4, i * 4, k * 4), direction[numbers[i, j, k] % 10]);
                     }
 
                     //player & star

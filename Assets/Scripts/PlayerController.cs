@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour {
     public float speed = 1f;
     public float runningMultiplyer = 2f;
     public float jumpForce = 100f;
-    
+
 
     public bool isGroud = false;
 
@@ -76,10 +76,10 @@ public class PlayerController : MonoBehaviour {
         else if (state == playerState.Claiming) {
             rb.useGravity = false;
             if (Input.GetKey(KeyCode.W))
-                Move(new Vector3(forward.x/2, speed/2, forward.z/2));
+                Move(new Vector3(forward.x / 2, speed / 2, forward.z / 2));
             else if (Input.GetKey(KeyCode.S)) {
                 if (!isGroud)
-                    Move(new Vector3(0, -speed/2,0));
+                    Move(new Vector3(0, -speed / 2, 0));
                 else
                     Move(new Vector3(-forward.x, 0, -forward.z));
             }
@@ -87,8 +87,7 @@ public class PlayerController : MonoBehaviour {
                 rb.velocity = new Vector3(0, 0, 0);
         }
 
-        else if (state == playerState.ForceWalk)
-        {
+        else if (state == playerState.ForceWalk) {
             Move(ForceWalkForward);
         }
 
@@ -97,9 +96,13 @@ public class PlayerController : MonoBehaviour {
             rb.AddForce(jumpForce * Vector3.up);
         }
 
-        if(Input.GetKeyDown(KeyCode.R))
-        {
+        if (Input.GetKeyDown(KeyCode.R)) {
             RestartScene();
+        }
+
+        if (Input.GetKeyDown(KeyCode.P)) {
+            SetState(PlayerController.playerState.StageClear);
+            result.SetActive(true);
         }
     }
 
@@ -113,13 +116,11 @@ public class PlayerController : MonoBehaviour {
         else
             currentSpeed = speed;
 
-        if(state == playerState.ClaimingStair)
-        {
+        if (state == playerState.ClaimingStair) {
             currentSpeed = speed * 2.5f;
         }
 
-        if(state == playerState.Air)
-        {
+        if (state == playerState.Air) {
             currentSpeed = speed * 1;
         }
         //Debug.Log(currentSpeed);
@@ -146,8 +147,7 @@ public class PlayerController : MonoBehaviour {
             return;
         }
 
-        if (state == playerState.Claiming)
-        {
+        if (state == playerState.Claiming) {
             rb.useGravity = false;
         }
 
@@ -158,23 +158,18 @@ public class PlayerController : MonoBehaviour {
         this.state = state;
     }
 
-    public void RestartScene()
-    {
+    public void RestartScene() {
 
         Application.LoadLevel(Application.loadedLevelName);
     }
 
-    public void CheckTeleportTimer()
-    {
-        if(teleportTimeLeft != -99)
-        {
-            if (teleportTimeLeft > 0)
-            {
+    public void CheckTeleportTimer() {
+        if (teleportTimeLeft != -99) {
+            if (teleportTimeLeft > 0) {
                 teleportTimeLeft -= Time.deltaTime;
-                transform.position = Vector3.Lerp(transform.position, lerpPosition, 1*Time.deltaTime);
+                transform.position = Vector3.Lerp(transform.position, lerpPosition, 1 * Time.deltaTime);
             }
-            if(teleportTimeLeft <= 0)
-            {
+            if (teleportTimeLeft <= 0) {
                 teleportTimeLeft = -99;
                 transform.position = destinationPosition;
                 SetState(playerState.Idle);
@@ -182,15 +177,13 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    public void setTeleportTimer(Vector3 destinationPosition, Vector3 lerpPosition)
-    {
+    public void setTeleportTimer(Vector3 destinationPosition, Vector3 lerpPosition) {
         teleportTimeLeft = 3;
         this.destinationPosition = destinationPosition;
         this.lerpPosition = lerpPosition;
     }
 
-    public void setForceWalkForward(Vector3 forward)
-    {
+    public void setForceWalkForward(Vector3 forward) {
         this.ForceWalkForward = forward;
     }
 }
