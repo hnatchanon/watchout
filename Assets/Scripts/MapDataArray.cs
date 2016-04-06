@@ -92,13 +92,13 @@ public class MapDataArray : MonoBehaviour
     public static int[][][,,] getData()
     {
         Data[0] = new int[10][,,];
-        Data[0] = new int[10][,,];
-        Data[0] = new int[10][,,];
+        Data[1] = new int[10][,,];
+        Data[2] = new int[10][,,];
 
 
         Data[0][0] = S01_L01;
         Data[0][1] = S01_L02;
-        Data[0][1] = S01_L02;
+        Data[0][2] = S01_L03;
         return Data;
     }
 

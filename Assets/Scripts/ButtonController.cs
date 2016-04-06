@@ -38,7 +38,8 @@ public class ButtonController : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.Space)) {
             Debug.Log(index);
-            //changeScence(cur.name);
+
+            menus[index].onClick.Invoke();
         }
     }
     private void SetHilight(int i) {
@@ -48,13 +49,19 @@ public class ButtonController : MonoBehaviour {
         hilight.rectTransform.position = menus[index].targetGraphic.rectTransform.position + new Vector3(0f, -0.02f, 0f);
     }
 
-    public void changeScence(string current_name) {
-        if (current_name == "Button1")
-            Application.LoadLevel("Stage 2");
-        else if (current_name == "Button2")
-            Application.LoadLevel(Application.loadedLevelName);
-        else if (current_name == "Button3")
-            Application.LoadLevel("Main Menu");
+    public void changeScence(string name) {
+        if(name == "next")
+        {
+            MapGenerator.nextLevel();
+            Application.LoadLevel("Generator");
+        }
+        else if(name == "retry")
+        {
+            Application.LoadLevel(Application.loadedLevel);
+        }
+        else
+            Application.LoadLevel(name);
+
 
     }
 }

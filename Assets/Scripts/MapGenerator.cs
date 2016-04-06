@@ -13,6 +13,7 @@ public class MapGenerator : MonoBehaviour {
 
 
     public static int[,,] numbers;
+    public static int level, stage;
 
     public Transform player, floor, goal, star, slope;
     public MovingPlane movingPlane;
@@ -69,8 +70,16 @@ public class MapGenerator : MonoBehaviour {
         }
     }
 
-    // Update is called once per frame
-    void Update() {
+    public static void nextLevel()
+    {
 
+        stage++;
+        numbers = MapDataArray.getData()[level - 1][stage - 1];
+        if(numbers == null)
+        {
+            level++;
+            stage = 0;
+            numbers = MapDataArray.getData()[level - 1][stage - 1];
+        }
     }
 }
