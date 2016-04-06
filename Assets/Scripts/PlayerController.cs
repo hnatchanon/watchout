@@ -65,11 +65,27 @@ public class PlayerController : MonoBehaviour {
         CheckInput();
         CheckFall();
         CheckTeleportTimer();
+        CheckLerpToGoal();
+    }
+
+    private void CheckLerpToGoal()
+    {
+        if (state == playerState.StageClear)
+        {
+            transform.position = Vector3.Lerp(transform.position, lerpPosition, 1 * Time.deltaTime);
+            Debug.Log(transform.position);
+            Debug.Log(lerpPosition);
+            float tranX = transform.position.x;
+            float tranZ = transform.position.z;
+            float lerpX = lerpPosition.x;
+            float lerpZ = lerpPosition.z;
+            if(Math.Abs(tranX - lerpX) <= 0.01 && Math.Abs(tranZ - lerpZ) <= 0.01)
+                result.SetActive(true);
+        }
     }
 
     private void CheckFreeze()
     {
-        Debug.Log(StartStageTimeLeft);
         if (StartStageTimeLeft == -99)
             return;
 
@@ -118,7 +134,7 @@ public class PlayerController : MonoBehaviour {
             Move(ForceWalkForward);
         }
 
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Alpha2)) && state != playerState.Claiming && state != playerState.Air && state != playerState.Teleporting && state != playerState.Claiming && state != playerState.ClaimingStair && state != playerState.ForceWalk ) {
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Alpha2)) && state != playerState.Claiming && state != playerState.Air && state != playerState.Teleporting && state != playerState.Claiming && state != playerState.ClaimingStair && state != playerState.ForceWalk && state != playerState.StageClear) {
             state = playerState.Air;
             rb.AddForce(jumpForce * Vector3.up);
         }
@@ -178,7 +194,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void SetState(playerState state) {
-        if (this.state == state || this.state == playerState.StageStart) {
+        if (this.state == state || this.state == playerState.StageStart || this.state == playerState.Dead || this.state == playerState.StageClear || this.state == playerState.Teleporting) {
             return;
         }
 
@@ -218,8 +234,14 @@ public class PlayerController : MonoBehaviour {
         this.lerpPosition = lerpPosition;
     }
 
+    public void LerpToGoal(Vector3 destination)
+    {
+        lerpPosition = destination;
+        
+    }
+
     public void setForceWalkForward(Vector3 forward) {
-        this.ForceWalkForward = forward;
+        ForceWalkForward = forward;
     }
     
 }
