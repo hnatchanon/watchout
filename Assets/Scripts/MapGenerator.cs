@@ -36,26 +36,28 @@ public class MapGenerator : MonoBehaviour {
                     // moving plane ---
                     if ((numbers[i, j, k] / 10) % 10 == 3) {
                         MovingPlane mp = (MovingPlane)Instantiate(movingPlane, new Vector3(j * 4, i * 4, k * 4), direction[numbers[i, j, k] % 10]);
+
+                        int length = (numbers[i, j, k] / 10) % 100 / 10;
+                        Debug.Log("val: " + numbers[i, j, k]);
+                        Debug.Log("length: " + length);
+
                         if (numbers[i, j, k] % 10 == 1) {
-                            mp.direction = new Vector3(1f, 0f, 0f);
+                            mp.direction = new Vector3(1f, 0f, 0f) * length;
                         }
                         else if (numbers[i, j, k] % 10 == 2) {
-                            mp.direction = new Vector3(0f, 0f, 1f);
+                            mp.direction = new Vector3(0f, 0f, 1f) * length;
                         }
                         else if (numbers[i, j, k] % 10 == 3) {
-                            mp.direction = new Vector3(-1f, 0f, 0f);
+                            mp.direction = new Vector3(-1f, 0f, 0f) * length;
                         }
                         else if (numbers[i, j, k] % 10 == 0) {
-                            mp.direction = new Vector3(0f, 0f, -1f);
+                            mp.direction = new Vector3(0f, 0f, -1f) * length;
                         }
-
-                        int length = numbers[i, j, k] % 100 / 10;
-                        mp.direction = mp.direction * length;
                     }
                     // moving plane |
                     if ((numbers[i, j, k] / 10) % 10 == 4) {
                         MovingPlane mp = (MovingPlane)Instantiate(movingPlane, new Vector3(j * 4, i * 4, k * 4), direction[numbers[i, j, k] % 10]);
-                        int length = numbers[i, j, k] % 100 / 10;
+                        int length = (numbers[i, j, k] / 10) % 100 / 10;
                         mp.direction = new Vector3(0f, 1f, 0f) * length;
                     }
                     // slope
@@ -74,7 +76,7 @@ public class MapGenerator : MonoBehaviour {
                     }
 
                     // spring
-                    if ((numbers[i, j, k] / 10) % 100 == 7) {
+                    if ((numbers[i, j, k] / 10) % 100 == 8) {
                         Instantiate(spring, new Vector3(j * 4, i * 4, k * 4), direction[numbers[i, j, k] % 10]);
                     }
 
