@@ -8,9 +8,6 @@ public class ButtonController : MonoBehaviour {
 	public Image hilight;
     public Button[] menus;
     public Text[] texts;
-    public Button s1;
-	public Button s2;
-	public Button s3;
 
     private int index;
 	

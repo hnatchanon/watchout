@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour {
     public bool isGroud = false;
 
     public GameObject result;
+    public GameObject dead;
 
     float currentSpeed;
 
@@ -35,7 +36,8 @@ public class PlayerController : MonoBehaviour {
         Debug.Log("Gravity :" + Physics.gravity);
         rb = GetComponent<Rigidbody>();
         co = GetComponent<SphereCollider>();
-            result.SetActive(false);
+        result.SetActive(false);
+        dead.SetActive(false);
     }
 
     void Update() {
@@ -125,7 +127,8 @@ public class PlayerController : MonoBehaviour {
 
     public void CheckFall() {
         if (transform.position.y <= -50) {
-            result.SetActive(true);
+
+            dead.SetActive(true);
             //rb.MovePosition(new Vector3(0, 1, 0));
         }
     }
