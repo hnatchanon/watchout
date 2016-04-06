@@ -51,8 +51,8 @@ public class MainController : MonoBehaviour {
             }
         }
         else if (state == playerState.MovingToLevelSelect) {
-            cardboard.transform.position = Vector3.Lerp(cardboard.transform.position, new Vector3(0, 1, 12), 0.5f * Time.deltaTime);
-            if (cardboard.transform.position.z >= 10f) {
+            cardboard.transform.position = Vector3.Lerp(cardboard.transform.position, new Vector3(0, 1, 50), 0.5f * Time.deltaTime);
+            if (cardboard.transform.position.z >= 33.5f) {
                 state = playerState.LevelSelect;
                 levelSelectMenu.SetActive(true);
             }
