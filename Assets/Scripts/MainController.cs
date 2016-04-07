@@ -8,7 +8,7 @@ public class MainController : MonoBehaviour {
     private bool gazed = false;
     private string scene = "";
     public GameObject cardboard;
-    public GameObject mainMenu, levelSelectMenu;
+    public GameObject mainMenu, levelSelectMenu,StartText,SetText,Credit,HowText;
 
     public enum playerState { MainMenu, LevelSelect, MovingToLevelSelect, MovingToMainMenu }
 
@@ -25,6 +25,7 @@ public class MainController : MonoBehaviour {
                     case "play game":
                         state = playerState.MovingToLevelSelect;
                         mainMenu.SetActive(false);
+					    
                         break;
                     case "s01l01":
                         Debug.Log("Stage 1, Level 1");
@@ -55,6 +56,10 @@ public class MainController : MonoBehaviour {
             if (cardboard.transform.position.z >= 33.5f) {
                 state = playerState.LevelSelect;
                 levelSelectMenu.SetActive(true);
+				StartText.SetActive (false);
+				SetText.SetActive (false);
+				Credit.SetActive (false);
+				HowText.SetActive (false);
             }
         }
         else if (state == playerState.LevelSelect) {
@@ -63,6 +68,10 @@ public class MainController : MonoBehaviour {
                     case "back":
                         state = playerState.MovingToMainMenu;
                         levelSelectMenu.SetActive(false);
+						StartText.SetActive (true);
+						SetText.SetActive (true);
+						Credit.SetActive (true);
+						HowText.SetActive (true);
                         break;
                 }
             }
