@@ -7,6 +7,8 @@ public class StageController : MonoBehaviour {
 	private string scene = "";
 	private Color colorStart = Color.yellow;
     private Color colorEnd = Color.white;
+	public GameObject cardboard;
+
 	private TextMesh text;
 
 	// Use this for initialization
@@ -19,14 +21,19 @@ public class StageController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (Input.GetKeyDown (KeyCode.A) && gazed) {
+			cardboard.transform.position = Vector3.Lerp(cardboard.transform.position, new Vector3(0, 1, 50), 0.5f * Time.deltaTime);
 
-		//Application.LoadLevel (scene);
+			//Application.LoadLevel (scene);
+
+		}
+
 	
 	}
 	
 	public void OnPointerEnter(/*string scene*/){
 	
-			gazed = true;
+		gazed = true;
         //scene = scene;
         text.color = colorEnd;
 	
