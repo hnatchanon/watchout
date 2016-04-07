@@ -1,10 +1,20 @@
 fileFormatVersion: 2
 guid: 887c628dc6bc6b64284f88f12ac4594f
-timeCreated: 1456303313
+timeCreated: 1460042463
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - player: {fileID: 482626, guid: 7906d2e7fdeb58443b24854841cbbee2, type: 2}
+  - floor: {fileID: 497038, guid: 588ffd83d39ec48999ab2bcf619eeae2, type: 2}
+  - goal: {fileID: 482724, guid: f5a0a7b4ac454fa4182ef98220e90843, type: 2}
+  - star: {fileID: 401380, guid: b82449563c8abbc47955dd85ec1c8048, type: 2}
+  - slope: {fileID: 419120, guid: d5de278b0cacaf743882fec3d675168b, type: 2}
+  - forceWalk: {fileID: 422816, guid: 4fb1dd7cd3e1db74083f705435317ff6, type: 2}
+  - ladder: {fileID: 441660, guid: 44f2bfe442be549e1869f4ea842bfc1d, type: 2}
+  - spring: {fileID: 445540, guid: cbe875bc088835948a6975047cda4dd4, type: 2}
+  - movingPlane: {fileID: 11465712, guid: 68bd678a319a52c4091235578c173788, type: 2}
+  - warp: {fileID: 11496612, guid: 4c9a47970d442f642a19da8085a3139f, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
