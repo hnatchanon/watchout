@@ -9,13 +9,13 @@ public class StageController : MonoBehaviour {
     private Color colorEnd = Color.white;
 	public GameObject cardboard;
 
-	private TextMesh text;
+    private Renderer rend;
 
 	// Use this for initialization
 	void Start () {
 
-		text = GetComponent<TextMesh>();
-		text.color = colorStart;
+		rend = GetComponent<Renderer>();
+        rend.material.color = colorStart;
 	
 	}
 	
@@ -34,14 +34,14 @@ public class StageController : MonoBehaviour {
 	public void OnPointerEnter(/*string scene*/){
 	
 		gazed = true;
-        //scene = scene;
-        text.color = colorEnd;
+       
+        rend.material.color = colorEnd;
 	
 		}
 
 	public void OnPointerExit() {
 		gazed = false;
-        text.color = colorStart;
+        rend.material.color = colorStart;
 
 	}
 }

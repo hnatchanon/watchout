@@ -33,6 +33,8 @@ public class MainController : MonoBehaviour
     private Vector3 credit = new Vector3(0, 1, -2);
     private Vector3 howToPlay = new Vector3(-2, 1, 0);
 
+    private Renderer stageRenderer;
+
 
 
     void Start()
@@ -41,35 +43,12 @@ public class MainController : MonoBehaviour
         text = GetComponent<TextMesh>();
         text.color = colorStart;
         initDict();
+
+        
     }
 
 
-    private void initDict()
-    {
-        PositionDict.Add("play game", levelSelect);
-        StateDict.Add("play game", playerState.LevelSelect);
 
-        PositionDict.Add("setting", setting);
-        StateDict.Add("setting", playerState.Setting);
-
-        PositionDict.Add("credit", credit);
-        StateDict.Add("credit", playerState.Credit);
-
-        PositionDict.Add("howtoplay", howToPlay);
-        StateDict.Add("howtoplay", playerState.HowToPlay);
-
-        PositionDict.Add("mainmenu", menuSelect);
-        StateDict.Add("mainmenu", playerState.MainMenu);
-
-        PositionDict.Add("level1", level1);
-        StateDict.Add("level1", playerState.Level1);
-
-        PositionDict.Add("level2", level2);
-        StateDict.Add("level2", playerState.Level2);
-
-        PositionDict.Add("level3", level3);
-        StateDict.Add("level3", playerState.Level3);
-    }
 
     void Update()
     {
@@ -95,25 +74,24 @@ public class MainController : MonoBehaviour
                     moveCameraTo(PositionDict[scene]);
                 }
                 else
-                {
-
-                }
-
-                switch (scene)
-                {
-                    case "s01l01":
-                        Debug.Log("Stage 1, Level 1");
-                        MapGenerator.numbers = MapDataArray.getData()[0][0];
-                        MapGenerator.level = 1;
-                        MapGenerator.stage = 1;
-                        Application.LoadLevel("Generator");
-                        break;
-                }
+                    LoadMapGenerator(scene);
 
             }
         }
     }
 
+    public void LoadMapGenerator(string levelStage)
+    {
+        string[] stringArr = levelStage.Split('S');
+        int level = int.Parse(stringArr[0]);
+        int stage = int.Parse(stringArr[1]);
+
+        MapGenerator.numbers = MapDataArray.getData()[level-1][stage-1];
+        MapGenerator.level = level;
+        MapGenerator.stage = stage;
+        Application.LoadLevel("Generator");
+        
+    }
 
     public void OnPointerEnter(string name)
     {
@@ -121,10 +99,23 @@ public class MainController : MonoBehaviour
         gazed = true;
         scene = name;
         text.color = colorEnd;
+
+        GameObject go = GameObject.Find(name);
+        if (go)
+        {
+            stageRenderer = go.GetComponent<Renderer>();
+            stageRenderer.material.color = Color.red;
+            
+        }
     }
 
     public void OnPointerExit()
     {
+        if (stageRenderer)
+        {
+            stageRenderer.material.color = Color.white;
+            stageRenderer = null;
+        }
         gazed = false;
         text.color = colorStart;
     }
@@ -132,16 +123,10 @@ public class MainController : MonoBehaviour
     public void moveCameraTo(Vector3 destination)
     {
         Vector3 cameraPosition = cardboard.transform.position;
-
         destinationPrime = destination * 1.07f - cameraPosition * 0.07f;
         this.destination = destination;
         state = playerState.Moving;
         setAllGameObjectInactive();
-        //Debug.Log("D Prime" + destinationPrime);
-        //Debug.Log("D " + destination);
-        //Debug.Log("CardboardPosition" + cameraPosition);
-
-
     }
 
     public void setState(playerState st)
@@ -204,5 +189,31 @@ public class MainController : MonoBehaviour
         BackFromLevel3.SetActive(false);
     }
 
+    private void initDict()
+    {
+        PositionDict.Add("play game", levelSelect);
+        StateDict.Add("play game", playerState.LevelSelect);
 
+        PositionDict.Add("setting", setting);
+        StateDict.Add("setting", playerState.Setting);
+
+        PositionDict.Add("credit", credit);
+        StateDict.Add("credit", playerState.Credit);
+
+        PositionDict.Add("howtoplay", howToPlay);
+        StateDict.Add("howtoplay", playerState.HowToPlay);
+
+        PositionDict.Add("mainmenu", menuSelect);
+        StateDict.Add("mainmenu", playerState.MainMenu);
+
+        PositionDict.Add("level1", level1);
+        StateDict.Add("level1", playerState.Level1);
+
+        PositionDict.Add("level2", level2);
+        StateDict.Add("level2", playerState.Level2);
+
+        PositionDict.Add("level3", level3);
+        StateDict.Add("level3", playerState.Level3);
+
+    }
 }
