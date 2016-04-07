@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        //Debug.Log("Player State: " + state);
+        Debug.Log("Player State: " + state);
 
         CheckFreeze();
         CheckSpeed();
@@ -73,8 +73,6 @@ public class PlayerController : MonoBehaviour {
         if (state == playerState.StageClear)
         {
             transform.position = Vector3.Lerp(transform.position, lerpPosition, 1 * Time.deltaTime);
-            Debug.Log(transform.position);
-            Debug.Log(lerpPosition);
             float tranX = transform.position.x;
             float tranZ = transform.position.z;
             float lerpX = lerpPosition.x;
@@ -223,7 +221,7 @@ public class PlayerController : MonoBehaviour {
             if (teleportTimeLeft <= 0) {
                 teleportTimeLeft = -99;
                 transform.position = destinationPosition;
-                SetState(playerState.Idle);
+                state = playerState.Idle;
             }
         }
     }
