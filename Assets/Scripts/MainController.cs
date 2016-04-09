@@ -35,6 +35,7 @@ public class MainController : MonoBehaviour
 
     private Renderer stageRenderer;
     public TextManager textManager;
+	public SoundManager sm;
 
 
 
@@ -58,9 +59,12 @@ public class MainController : MonoBehaviour
         Debug.Log("Camera State: " + state);
         if (state == playerState.Moving)
         {
+			sm.playSound (SoundManager.soundclip.Dash);
             cardboard.transform.position = Vector3.Lerp(cardboard.transform.position, destinationPrime, Time.deltaTime);
             if((destination - cardboard.transform.position).magnitude <= 0.05f)
             {
+				sm.stopSound ();
+				
                 setState(nextState);
                 cardboard.transform.position = destination;
             }
