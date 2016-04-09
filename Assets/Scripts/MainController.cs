@@ -74,6 +74,7 @@ public class MainController : MonoBehaviour
             if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Alpha2)) && gazed)
             {
                 Debug.Log("Scene Var: " + scene);
+				sm.playSound (SoundManager.soundclip.PointEnter);
 
                 if(PositionDict.ContainsKey(scene) && StateDict.ContainsKey(scene))
                 {
@@ -106,6 +107,7 @@ public class MainController : MonoBehaviour
         gazed = true;
         scene = name;
         text.color = colorEnd;
+		sm.playSound (SoundManager.soundclip.Cursor);
 
         GameObject go = GameObject.Find(name);
         if (go)

@@ -33,7 +33,7 @@ public class SoundManager : MonoBehaviour {
 	public void playSound (soundclip sc)
 	{
 		AudioClip ac = audioClipMapper [sc];
-		source.PlayOneShot (ac,1f);
+		source.PlayOneShot (ac,0.5f);
 		//Debug.Log("Playsound eiei");
 
 	}
