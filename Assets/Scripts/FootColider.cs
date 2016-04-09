@@ -18,6 +18,11 @@ public class FootColider : MonoBehaviour {
         if (other.CompareTag("MovingPlane")) {
             playerController.gameObject.transform.parent = other.gameObject.transform.parent;
         }
+        if (other.CompareTag("EnergyBall"))
+        {
+            Destroy(other.gameObject);
+            playerController.gameObject.GetComponent<Rigidbody>().AddForce(other.transform.forward * 500);
+        }
 
     }
 

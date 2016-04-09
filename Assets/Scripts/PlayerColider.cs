@@ -56,6 +56,7 @@ public class PlayerColider : MonoBehaviour {
             
         }
 
+
     }
 
     void OnTriggerStay(Collider other)
