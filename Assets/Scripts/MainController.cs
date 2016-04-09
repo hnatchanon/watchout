@@ -34,6 +34,7 @@ public class MainController : MonoBehaviour
     private Vector3 howToPlay = new Vector3(-2, 1, 0);
 
     private Renderer stageRenderer;
+    public TextManager textManager;
 
 
 
@@ -44,7 +45,8 @@ public class MainController : MonoBehaviour
         text.color = colorStart;
         initDict();
 
-        
+        //textManager.LogAllEngWords();
+        textManager.EngToThai();
     }
 
 
@@ -52,6 +54,7 @@ public class MainController : MonoBehaviour
 
     void Update()
     {
+
         Debug.Log("Camera State: " + state);
         if (state == playerState.Moving)
         {
