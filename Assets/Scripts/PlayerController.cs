@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour {
 
     void Start() {
         state = playerState.StageStart;
-        Freeze();
+        //Freeze();
         rb = GetComponent<Rigidbody>();
         co = GetComponent<SphereCollider>();
         result.SetActive(false);
@@ -171,7 +171,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         if (state == playerState.ForceWalk)
-            currentSpeed = speed * 1.5f;
+            currentSpeed = speed * 2f;
         //Debug.Log(currentSpeed);
     }
 
@@ -241,5 +241,7 @@ public class PlayerController : MonoBehaviour {
     public void setForceWalkForward(Vector3 forward) {
         ForceWalkForward = forward;
     }
+
+    
     
 }
