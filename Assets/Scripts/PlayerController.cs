@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour {
     private Vector3 ForceWalkForward;
 
     private float StartStageTimeLeft;
+	public SoundManager sm;
     
 
 

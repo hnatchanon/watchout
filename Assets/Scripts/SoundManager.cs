@@ -37,6 +37,14 @@ public class SoundManager : MonoBehaviour {
 		//Debug.Log("Playsound eiei");
 
 	}
+	public void playSound (soundclip sc, float volumn)
+	{
+		Debug.Log (sc + " " + volumn);
+		AudioClip ac = audioClipMapper [sc];
+		source.PlayOneShot (ac,volumn);
+		//Debug.Log("Playsound eiei");
+
+	}
 
 	public void stopSound()
 	{
