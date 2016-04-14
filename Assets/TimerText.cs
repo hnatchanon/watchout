@@ -6,7 +6,7 @@ public class TimerText : MonoBehaviour {
 
     private Text text;
 
-    private float time;
+    private static float time;
 
     public enum TimerState { running, pause };
 
@@ -36,4 +36,14 @@ public class TimerText : MonoBehaviour {
     public float GetTime() {
         return time;
     }
+
+
+    public static int[] getTime()
+    {
+        int[] array = new int[2];
+        array[0] = (int)time / 60;
+        array[1] = (int)time % 60;
+        return array;
+    }
+    
 }

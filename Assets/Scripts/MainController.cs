@@ -112,6 +112,15 @@ public class MainController : MonoBehaviour
         GameObject go = GameObject.Find(name);
         if (go)
         {
+            string[] arr = name.Split('S');
+            int stage = int.Parse(arr[0]);
+            int level = int.Parse(arr[1]);
+            int[] leaderboardRecord = Leaderboard.getLeaderboard(stage, level);
+            if (leaderboardRecord != null)
+                Debug.Log(name + " Leaderboard. Min: " + leaderboardRecord[0] + " Sec: " + leaderboardRecord[1]);
+            else
+                Debug.Log("Leaderboard does't exist.");
+
             stageRenderer = go.GetComponent<Renderer>();
             stageRenderer.material.color = Color.red;
             
