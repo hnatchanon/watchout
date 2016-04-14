@@ -16,6 +16,7 @@ public class PlayerColider : MonoBehaviour {
     // Use this for initialization
     void OnTriggerEnter(Collider other)
     {
+        Debug.Log("On Trigger Enter: " + other.tag);
         if (other.CompareTag("Floor"))
             playerController.isGroud = true;
 
@@ -61,6 +62,7 @@ public class PlayerColider : MonoBehaviour {
 
     void OnTriggerStay(Collider other)
     {
+        Debug.Log("On Trigger Stay: " + other.tag);
         if(other.CompareTag("ForceWalk"))
         {
             playerController.SetState(PlayerController.playerState.ForceWalk);
