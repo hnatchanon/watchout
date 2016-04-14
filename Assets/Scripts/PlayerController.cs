@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour {
 
     public GameObject result;
     public GameObject dead;
+    public GameObject menu;
 
     float currentSpeed;
 
@@ -147,6 +148,11 @@ public class PlayerController : MonoBehaviour {
             result.SetActive(true);
         }
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            inGameMenu();
+        }
+
 
     }
 
@@ -243,6 +249,10 @@ public class PlayerController : MonoBehaviour {
         ForceWalkForward = forward;
     }
 
-    
+    public void inGameMenu()
+    {
+        menu.SetActive(!menu.active);
+        
+    }
     
 }
