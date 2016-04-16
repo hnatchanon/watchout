@@ -33,6 +33,8 @@ public class SoundManager : MonoBehaviour {
 
 	public void playSound (soundclip sc)
 	{
+        if (PlayerPrefs.GetString("FX") == "FALSE")
+            return;
 		AudioClip ac = audioClipMapper [sc];
 		source.PlayOneShot (ac,0.5f);
 		//Debug.Log("Playsound eiei");
@@ -40,7 +42,9 @@ public class SoundManager : MonoBehaviour {
 	}
 	public void playSound (soundclip sc, float volumn)
 	{
-		Debug.Log (sc + " " + volumn);
+        if (PlayerPrefs.GetString("FX") == "FALSE")
+            return;
+        Debug.Log (sc + " " + volumn);
 		AudioClip ac = audioClipMapper [sc];
 		source.PlayOneShot (ac,volumn);
 		//Debug.Log("Playsound eiei");

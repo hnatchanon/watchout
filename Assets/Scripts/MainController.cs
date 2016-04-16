@@ -52,7 +52,7 @@ public class MainController : MonoBehaviour
         initDict();
 
         //textManager.LogAllEngWords();
-        initLanguage();
+        initSetting();
     }
 
 
@@ -88,11 +88,25 @@ public class MainController : MonoBehaviour
                 }
                 else if(scene == "bgm")
                 {
+                    string bgm;
                     bgmToggle.isOn = !bgmToggle.isOn;
+                    if (bgmToggle.isOn)
+                        bgm = "TRUE";
+                    else
+                        bgm = "FALSE";
+                    PlayerPrefs.SetString("BGM", bgm);
+
+                    updateBGMMute();
                 }
                 else if (scene == "fx")
                 {
+                    string fx;
                     fxToggle.isOn = !fxToggle.isOn;
+                    if (fxToggle.isOn)
+                        fx = "TRUE";
+                    else
+                        fx = "FALSE";
+                    PlayerPrefs.SetString("FX", fx);
                 }
                 else if (scene == "setting_langugage")
                 {
@@ -276,13 +290,41 @@ public class MainController : MonoBehaviour
         }
     }
 
-    public void initLanguage()
+    public void initSetting()
     {
         string isThai = PlayerPrefs.GetString("Language");
         settingLanguageText.text = isThai;
         if (isThai == "")
+        {
             settingLanguageText.text = "ENGLISH";
+            PlayerPrefs.SetString("Language", "ENGLISH");
+        }
         else if (isThai == "THAI")
-            textManager.EngToThai();   
+            textManager.EngToThai();
+
+        string isBGM = PlayerPrefs.GetString("BGM");
+        if (isBGM == "")
+            PlayerPrefs.SetString("BGM", "TRUE");
+        else if (isBGM == "FALSE")
+            bgmToggle.isOn = false;
+
+        string isFX = PlayerPrefs.GetString("FX");
+        if (isFX == "")
+            PlayerPrefs.SetString("FX", "TRUE");
+        else if (isFX == "FALSE")
+            fxToggle.isOn = false;
+
+        updateBGMMute();
+    }
+
+    public void updateBGMMute()
+    {
+
+        AudioSource audioSource = GetComponent<AudioSource>();
+        Debug.Log("Test AudioSource: " + audioSource.mute);
+        if (PlayerPrefs.GetString("BGM") == "FALSE")
+            audioSource.mute = true;
+        else
+            audioSource.mute = false;
     }
 }
