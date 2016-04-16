@@ -13,7 +13,7 @@ public class MainController : MonoBehaviour
     private Color colorEnd = Color.white;
     private TextMesh text;
     public GameObject cardboard;
-    public GameObject mainMenu, levelSelectMenu, StartText, SetText, Credit, HowText, BackFromHowToPlay, BackFromCredit, BackFromSetting, BackFromLevel1, BackFromLevel2, BackFromLevel3;
+    public GameObject mainMenu, levelSelectMenu, StartText, SetText, Credit, HowText, BackFromHowToPlay, BackFromCredit, BackFromSetting, BackFromLevel1, BackFromLevel2, BackFromLevel3, CreditMesh;
 
     public enum playerState {Level1, Level2, Level3, MainMenu, Setting, HowToPlay, Credit, LevelSelect, MovingToLevelSelect, MovingToMainMenu, MovingToStage, Moving }
 
@@ -162,6 +162,7 @@ public class MainController : MonoBehaviour
                 break;
 
             case playerState.Credit:
+                CreditMesh.SetActive(true);
                 BackFromCredit.SetActive(true);
                 break;
 
@@ -205,6 +206,7 @@ public class MainController : MonoBehaviour
         BackFromLevel1.SetActive(false);
         BackFromLevel2.SetActive(false);
         BackFromLevel3.SetActive(false);
+        CreditMesh.SetActive(false);
     }
 
     private void initDict()
