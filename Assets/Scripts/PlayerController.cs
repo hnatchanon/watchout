@@ -82,6 +82,7 @@ public class PlayerController : MonoBehaviour {
     {
         if (state == playerState.StageClear)
         {
+			sm.playSound (SoundManager.soundclip.Goal);
             transform.position = Vector3.Lerp(transform.position, lerpPosition, 1 * Time.deltaTime);
             float tranX = transform.position.x;
             float tranZ = transform.position.z;
@@ -143,12 +144,14 @@ public class PlayerController : MonoBehaviour {
         }
 
         else if (state == playerState.ForceWalk) {
+			sm.playSound (SoundManager.soundclip.ForceWalk);
             Move(ForceWalkForward);
         }
 
         if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Alpha2)) && state != playerState.Claiming && state != playerState.Air && state != playerState.Teleporting && state != playerState.Claiming && state != playerState.ClaimingStair && state != playerState.ForceWalk && state != playerState.StageClear) {
             state = playerState.Air;
             rb.AddForce(jumpForce * Vector3.up);
+			sm.playSound (SoundManager.soundclip.Jump);
         }
 
         if (Input.GetKeyDown(KeyCode.R)) {
@@ -203,6 +206,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void CollectStar() {
+		sm.playSound (SoundManager.soundclip.Star);
         starCount++;
     }
 
@@ -238,10 +242,13 @@ public class PlayerController : MonoBehaviour {
                 transform.position = Vector3.Lerp(transform.position, lerpPosition, 1 * Time.deltaTime);
             }
             if (teleportTimeLeft <= 0) {
+				sm.playSound (SoundManager.soundclip.Warp);
                 teleportTimeLeft = -99;
                 transform.position = destinationPosition;
                 state = playerState.Idle;
-            }
+
+
+			}
         }
     }
 

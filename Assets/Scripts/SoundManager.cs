@@ -28,6 +28,7 @@ public class SoundManager : MonoBehaviour {
 		audioClipMapper.Add (soundclip.Warp,Warp);
 		audioClipMapper.Add (soundclip.Star,Star);
 
+
 	}
 
 	public void playSound (soundclip sc)
