@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour {
 
     public GameObject result;
     public GameObject dead;
+    public GameObject menu;
 
     float currentSpeed;
 
@@ -32,16 +33,24 @@ public class PlayerController : MonoBehaviour {
     private Vector3 ForceWalkForward;
 
     private float StartStageTimeLeft;
+	public SoundManager sm;
     
 
 
     void Start() {
         state = playerState.StageStart;
-        Freeze();
+        //Freeze();
         rb = GetComponent<Rigidbody>();
         co = GetComponent<SphereCollider>();
         result.SetActive(false);
         dead.SetActive(false);
+
+        //int level = 99;
+        //int stage = 99;
+        //int min = 80;
+        //int sec = 70;
+        //Debug.Log(getLeaderboardRecord(90, 90));
+        //Debug.Log(getLeaderboardRecord(90, 90)[0] + " " + getLeaderboardRecord(90, 90)[1]);
     }
 
     private void Freeze()
@@ -77,8 +86,12 @@ public class PlayerController : MonoBehaviour {
             float tranZ = transform.position.z;
             float lerpX = lerpPosition.x;
             float lerpZ = lerpPosition.z;
-            if(Math.Abs(tranX - lerpX) <= 0.01 && Math.Abs(tranZ - lerpZ) <= 0.01)
+            if (Math.Abs(tranX - lerpX) <= 0.01 && Math.Abs(tranZ - lerpZ) <= 0.01)
+            {
                 result.SetActive(true);
+                submitLeaderboard(MapGenerator.level, MapGenerator.stage, TimerText.getTime()[0], TimerText.getTime()[1]);
+                Debug.Log(getLeaderboardRecord(MapGenerator.level, MapGenerator.stage)[0] + " " + getLeaderboardRecord(MapGenerator.level, MapGenerator.stage)[1]);
+            }
         }
     }
 
@@ -146,6 +159,11 @@ public class PlayerController : MonoBehaviour {
             result.SetActive(true);
         }
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            inGameMenu();
+        }
+
 
     }
 
@@ -171,7 +189,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         if (state == playerState.ForceWalk)
-            currentSpeed = speed * 1.5f;
+            currentSpeed = speed * 2f;
         //Debug.Log(currentSpeed);
     }
 
@@ -240,6 +258,27 @@ public class PlayerController : MonoBehaviour {
 
     public void setForceWalkForward(Vector3 forward) {
         ForceWalkForward = forward;
+    }
+
+    public void inGameMenu()
+    {
+        menu.SetActive(!menu.active);
+        
+    }
+
+    private void submitLeaderboard(int level, int stage, int min, int sec)
+    {
+        Leaderboard.submitScore(level, stage, min, sec);
+    }
+
+    private int[] getLeaderboardRecord(int level, int stage)
+    {
+        return Leaderboard.getLeaderboard(level, stage);
+    }
+
+    public playerState getState()
+    {
+        return state;
     }
     
 }

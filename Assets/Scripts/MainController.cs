@@ -34,6 +34,8 @@ public class MainController : MonoBehaviour
     private Vector3 howToPlay = new Vector3(-2, 1, 0);
 
     private Renderer stageRenderer;
+    public TextManager textManager;
+	public SoundManager sm;
 
 
 
@@ -44,7 +46,8 @@ public class MainController : MonoBehaviour
         text.color = colorStart;
         initDict();
 
-        
+        //textManager.LogAllEngWords();
+        textManager.EngToThai();
     }
 
 
@@ -52,12 +55,16 @@ public class MainController : MonoBehaviour
 
     void Update()
     {
+
         Debug.Log("Camera State: " + state);
         if (state == playerState.Moving)
         {
+			sm.playSound (SoundManager.soundclip.Dash,0.000000000001f);
             cardboard.transform.position = Vector3.Lerp(cardboard.transform.position, destinationPrime, Time.deltaTime);
             if((destination - cardboard.transform.position).magnitude <= 0.05f)
             {
+				sm.stopSound ();
+				
                 setState(nextState);
                 cardboard.transform.position = destination;
             }
@@ -67,6 +74,7 @@ public class MainController : MonoBehaviour
             if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Alpha2)) && gazed)
             {
                 Debug.Log("Scene Var: " + scene);
+				sm.playSound (SoundManager.soundclip.PointEnter);
 
                 if(PositionDict.ContainsKey(scene) && StateDict.ContainsKey(scene))
                 {
@@ -99,10 +107,20 @@ public class MainController : MonoBehaviour
         gazed = true;
         scene = name;
         text.color = colorEnd;
+		sm.playSound (SoundManager.soundclip.Cursor);
 
         GameObject go = GameObject.Find(name);
         if (go)
         {
+            string[] arr = name.Split('S');
+            int stage = int.Parse(arr[0]);
+            int level = int.Parse(arr[1]);
+            int[] leaderboardRecord = Leaderboard.getLeaderboard(stage, level);
+            if (leaderboardRecord != null)
+                Debug.Log(name + " Leaderboard. Min: " + leaderboardRecord[0] + " Sec: " + leaderboardRecord[1]);
+            else
+                Debug.Log("Leaderboard does't exist.");
+
             stageRenderer = go.GetComponent<Renderer>();
             stageRenderer.material.color = Color.red;
             
