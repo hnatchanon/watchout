@@ -156,7 +156,7 @@ public class MainController : MonoBehaviour
                 Debug.Log("Leaderboard does't exist.");
 
             stageRenderer = go.GetComponent<Renderer>();
-            stageRenderer.material.color = Color.red;
+            stageRenderer.material.color = Color.green;
             
         }
     }
