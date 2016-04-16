@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour {
 
     private float StartStageTimeLeft;
 	public SoundManager sm;
+    public GameObject timerHUD, starHUD;
     
 
 
@@ -47,6 +48,7 @@ public class PlayerController : MonoBehaviour {
         result.SetActive(false);
         dead.SetActive(false);
         isAfterClear = false;
+        settingBGM();
 
         //int level = 99;
         //int stage = 99;
@@ -95,6 +97,8 @@ public class PlayerController : MonoBehaviour {
             float lerpZ = lerpPosition.z;
             if (Math.Abs(tranX - lerpX) <= 0.01 && Math.Abs(tranZ - lerpZ) <= 0.01)
             {
+                timerHUD.SetActive(false);
+                starHUD.SetActive(false);
                 result.SetActive(true);
                 submitLeaderboard(MapGenerator.level, MapGenerator.stage, TimerText.getTime()[0], TimerText.getTime()[1]);
                 Debug.Log(getLeaderboardRecord(MapGenerator.level, MapGenerator.stage)[0] + " " + getLeaderboardRecord(MapGenerator.level, MapGenerator.stage)[1]);
@@ -293,6 +297,12 @@ public class PlayerController : MonoBehaviour {
     public playerState getState()
     {
         return state;
+    }
+
+    public void settingBGM()
+    {
+        if (PlayerPrefs.GetString("BGM") == "FALSE")
+            GetComponent<AudioSource>().mute = true;
     }
     
 }
