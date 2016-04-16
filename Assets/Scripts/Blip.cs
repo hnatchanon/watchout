@@ -22,7 +22,6 @@ public class Blip : MonoBehaviour {
         myRectTransform.localPosition = newPosition;
 
         float angle = 360 - Mathf.Atan2(newPosition.x, newPosition.y)* 180 / Mathf.PI;
-        Debug.Log(angle);
         myRectTransform.localRotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
         if (!target.gameObject.activeSelf) {

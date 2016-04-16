@@ -4,7 +4,6 @@ using System.Collections;
 public class PlayerColider : MonoBehaviour {
 
     public PlayerController playerController;
-    public float jumpForce;
 
     private Rigidbody rb;
 
@@ -16,14 +15,15 @@ public class PlayerColider : MonoBehaviour {
     // Use this for initialization
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("On Trigger Enter: " + other.tag);
+        //Debug.Log("On Trigger Enter: " + other.tag);
         if (other.CompareTag("Floor"))
             playerController.isGroud = true;
 
         if (other.CompareTag("Jumper"))
         {
+            Debug.Log("JUMP!");
+            rb.AddForce(playerController.jumpForce * Vector3.up * 2);
             playerController.SetState(PlayerController.playerState.Air);
-            rb.AddForce(new Vector3(0, jumpForce * 3, 0));
         }
 
         if (other.CompareTag("Star"))
@@ -62,7 +62,7 @@ public class PlayerColider : MonoBehaviour {
 
     void OnTriggerStay(Collider other)
     {
-        Debug.Log("On Trigger Stay: " + other.tag);
+        //Debug.Log("On Trigger Stay: " + other.tag);
         if(other.CompareTag("ForceWalk"))
         {
             playerController.SetState(PlayerController.playerState.ForceWalk);

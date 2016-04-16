@@ -33,7 +33,7 @@ public class TurretEnemy : MonoBehaviour {
     private void Shoot()
     {
         GameObject go = (GameObject)Instantiate(bullet, gunTransform.position, gunTransform.rotation);
-        Debug.Log(gunTransform.forward);
+        //Debug.Log(gunTransform.forward);
         Destroy(go, destroyIn);
     }
 }

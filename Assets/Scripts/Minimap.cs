@@ -7,6 +7,7 @@ public class Minimap : MonoBehaviour {
     public Transform target;
     public float zoomLevel = 20f;
     public float radius = 40f;
+    public Blip blip;
 
     Vector2 XRotation;
     Vector2 YRotation;
@@ -33,5 +34,12 @@ public class Minimap : MonoBehaviour {
         tmpPoint /= m;
 
         return tmpPoint;
+    }
+
+    public void GenerateBlip(GameObject obj)
+    {
+        Blip b = Instantiate<Blip>(blip);
+        b.target = obj.transform;
+        b.transform.parent = transform;
     }
 }

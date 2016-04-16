@@ -56,7 +56,7 @@ public class MainController : MonoBehaviour
     void Update()
     {
 
-        Debug.Log("Camera State: " + state);
+        //Debug.Log("Camera State: " + state);
         if (state == playerState.Moving)
         {
 			sm.playSound (SoundManager.soundclip.Dash,0.000000000001f);
@@ -103,7 +103,7 @@ public class MainController : MonoBehaviour
 
     public void OnPointerEnter(string name)
     {
-        Debug.Log("On Pointer Enter: " + name);
+        //Debug.Log("On Pointer Enter: " + name);
         gazed = true;
         scene = name;
         text.color = colorEnd;

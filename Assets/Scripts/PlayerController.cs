@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour {
     public GameObject result;
     public GameObject dead;
     public GameObject menu;
+    private Minimap minimap;
 
     float currentSpeed;
 
@@ -67,7 +68,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        Debug.Log("Player State: " + state);
+        //Debug.Log("Player State: " + state);
 
         CheckFreeze();
         CheckSpeed();
