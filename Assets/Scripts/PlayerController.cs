@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour {
     private Vector3 destinationPosition;
     private Vector3 lerpPosition;
     private Vector3 ForceWalkForward;
+    private bool isAfterClear;
 
     private float StartStageTimeLeft;
 	public SoundManager sm;
@@ -45,6 +46,7 @@ public class PlayerController : MonoBehaviour {
         co = GetComponent<SphereCollider>();
         result.SetActive(false);
         dead.SetActive(false);
+        isAfterClear = false;
 
         //int level = 99;
         //int stage = 99;
@@ -82,6 +84,9 @@ public class PlayerController : MonoBehaviour {
     {
         if (state == playerState.StageClear)
         {
+            if (isAfterClear)
+                return;
+
 			sm.playSound (SoundManager.soundclip.Goal);
             transform.position = Vector3.Lerp(transform.position, lerpPosition, 1 * Time.deltaTime);
             float tranX = transform.position.x;
@@ -93,6 +98,7 @@ public class PlayerController : MonoBehaviour {
                 result.SetActive(true);
                 submitLeaderboard(MapGenerator.level, MapGenerator.stage, TimerText.getTime()[0], TimerText.getTime()[1]);
                 Debug.Log(getLeaderboardRecord(MapGenerator.level, MapGenerator.stage)[0] + " " + getLeaderboardRecord(MapGenerator.level, MapGenerator.stage)[1]);
+                isAfterClear = true;
             }
         }
     }
