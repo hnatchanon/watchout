@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class MainController : MonoBehaviour
 {
@@ -37,6 +38,10 @@ public class MainController : MonoBehaviour
     public TextManager textManager;
 	public SoundManager sm;
 
+    public Toggle bgmToggle;
+    public Toggle fxToggle;
+    public Text settingLanguageText;
+
 
 
     void Start()
@@ -47,7 +52,7 @@ public class MainController : MonoBehaviour
         initDict();
 
         //textManager.LogAllEngWords();
-        textManager.EngToThai();
+        initLanguage();
     }
 
 
@@ -80,6 +85,21 @@ public class MainController : MonoBehaviour
                 {
                     nextState = StateDict[scene];
                     moveCameraTo(PositionDict[scene]);
+                }
+                else if(scene == "bgm")
+                {
+                    bgmToggle.isOn = !bgmToggle.isOn;
+                }
+                else if (scene == "fx")
+                {
+                    fxToggle.isOn = !fxToggle.isOn;
+                }
+                else if (scene == "setting_langugage")
+                {
+                    if(settingLanguageText.text == "ENGLISH")
+                        setLanguage("THAI");
+                    if (settingLanguageText.text == "THAI")
+                        setLanguage("ENGLISH");
                 }
                 else
                     LoadMapGenerator(scene);
@@ -239,5 +259,30 @@ public class MainController : MonoBehaviour
         PositionDict.Add("level3", level3);
         StateDict.Add("level3", playerState.Level3);
 
+    }
+
+    public void setLanguage (string language)
+    {
+        if(language == "THAI")
+        {
+            textManager.EngToThai();
+            PlayerPrefs.SetString("Language","THAI" );
+            Application.LoadLevel(Application.loadedLevel);
+        }
+        if (language == "ENGLISH")
+        {
+            PlayerPrefs.SetString("Language", "ENGLISH");
+            Application.LoadLevel(Application.loadedLevel);
+        }
+    }
+
+    public void initLanguage()
+    {
+        string isThai = PlayerPrefs.GetString("Language");
+        settingLanguageText.text = isThai;
+        if (isThai == "")
+            settingLanguageText.text = "ENGLISH";
+        else if (isThai == "THAI")
+            textManager.EngToThai();   
     }
 }
