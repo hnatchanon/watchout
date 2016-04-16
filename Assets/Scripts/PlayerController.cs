@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour {
         result.SetActive(false);
         dead.SetActive(false);
         isAfterClear = false;
+        settingBGM();
 
         //int level = 99;
         //int stage = 99;
@@ -293,6 +294,12 @@ public class PlayerController : MonoBehaviour {
     public playerState getState()
     {
         return state;
+    }
+
+    public void settingBGM()
+    {
+        if (PlayerPrefs.GetString("BGM") == "FALSE")
+            GetComponent<AudioSource>().mute = true;
     }
     
 }
