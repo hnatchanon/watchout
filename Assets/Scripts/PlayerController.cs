@@ -224,7 +224,7 @@ public class PlayerController : MonoBehaviour {
                 transform.position = Vector3.Lerp(transform.position, lerpPosition, 1 * Time.deltaTime);
             }
             if (teleportTimeLeft <= 0) {
-				//sm.playSound (SoundManager.soundclip.Warp);
+				sm.playSound (SoundManager.soundclip.Warp);
                 teleportTimeLeft = -99;
                 transform.position = destinationPosition;
                 state = playerState.Idle;
