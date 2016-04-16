@@ -56,7 +56,7 @@ public class MainController : MonoBehaviour
     void Update()
     {
 
-        Debug.Log("Camera State: " + state);
+        //Debug.Log("Camera State: " + state);
         if (state == playerState.Moving)
         {
 			sm.playSound (SoundManager.soundclip.Dash,0.000000000001f);
@@ -103,7 +103,7 @@ public class MainController : MonoBehaviour
 
     public void OnPointerEnter(string name)
     {
-        Debug.Log("On Pointer Enter: " + name);
+        //Debug.Log("On Pointer Enter: " + name);
         gazed = true;
         scene = name;
         text.color = colorEnd;
@@ -112,6 +112,15 @@ public class MainController : MonoBehaviour
         GameObject go = GameObject.Find(name);
         if (go)
         {
+            string[] arr = name.Split('S');
+            int stage = int.Parse(arr[0]);
+            int level = int.Parse(arr[1]);
+            int[] leaderboardRecord = Leaderboard.getLeaderboard(stage, level);
+            if (leaderboardRecord != null)
+                Debug.Log(name + " Leaderboard. Min: " + leaderboardRecord[0] + " Sec: " + leaderboardRecord[1]);
+            else
+                Debug.Log("Leaderboard does't exist.");
+
             stageRenderer = go.GetComponent<Renderer>();
             stageRenderer.material.color = Color.red;
             

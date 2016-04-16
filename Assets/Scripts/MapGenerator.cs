@@ -21,6 +21,11 @@ public class MapGenerator : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
+        Transform[] stars = new Transform[3];
+        int tmpCnt = 0;
+
+        Minimap minimap = new Minimap();
+
         for (int i = 0; i < numbers.GetLength(0); i++) {
             for (int j = 0; j < numbers.GetLength(1); j++) {
                 for (int k = 0; k < numbers.GetLength(2); k++) {
@@ -95,12 +100,27 @@ public class MapGenerator : MonoBehaviour {
 
                     //player & star
                     if ((numbers[i, j, k] / 1000) % 10000000 == 1)
-                        Instantiate(player, new Vector3(j, i, k) * 4, direction[numbers[i, j, k] % 10]);
+                    {
+                        Transform tmpPlayer = (Transform)Instantiate(player, new Vector3(j, i, k) * 4, direction[numbers[i, j, k] % 10]);
+                        minimap = tmpPlayer.GetComponentInChildren<Minimap>();
+                        Debug.Log(minimap);
+
+                    }
                     if ((numbers[i, j, k] / 1000) % 10000000 == 2)
-                        Instantiate(star, new Vector3(j, i, k) * 4, direction[numbers[i, j, k] % 10]);
+                    {
+                        Transform tmpStar = (Transform)Instantiate(star, new Vector3(j, i, k) * 4, direction[numbers[i, j, k] % 10]);
+                        stars[tmpCnt++] = tmpStar;
+                    }
 
                 }
             }
+        }
+
+        
+        for(int i=0; i<3; i++)
+        {
+            Debug.Log(minimap);
+            minimap.GenerateBlip(stars[i].gameObject);
         }
     }
 
