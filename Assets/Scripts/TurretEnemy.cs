@@ -7,7 +7,7 @@ public class TurretEnemy : MonoBehaviour {
     public GameObject bullet;
 
     public float frequent = 1f;
-    public float destroyIn = 3000f;
+    public float destroyIn = 1.0f;
 
     private float timer;
 
@@ -32,8 +32,10 @@ public class TurretEnemy : MonoBehaviour {
 
     private void Shoot()
     {
+        Debug.Log("LifeTime: " + destroyIn);
         GameObject go = (GameObject)Instantiate(bullet, gunTransform.position, gunTransform.rotation);
         //Debug.Log(gunTransform.forward);
         Destroy(go, destroyIn);
+        
     }
 }
