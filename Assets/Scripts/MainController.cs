@@ -103,7 +103,7 @@ public class MainController : MonoBehaviour
 
     public void OnPointerEnter(string name)
     {
-        //Debug.Log("On Pointer Enter: " + name);
+        Debug.Log("On Pointer Enter: " + name);
         gazed = true;
         scene = name;
         text.color = colorEnd;
