@@ -7,8 +7,8 @@ public class SoundManager : MonoBehaviour {
 
 	private AudioSource source;
 
-	public enum soundclip {PointEnter,Dash,Jump,Goal,Cursor,ForceWalk,Warp,Star,Shoot};
-	public AudioClip jump,Dash,Cursor,ForceWalk,PointEnter,Goal,Warp,Star,Shoot;
+	public enum soundclip {PointEnter,Dash,Jump,Goal,Cursor,ForceWalk,Warp,Star,Shoot,Coll};
+	public AudioClip jump,Dash,Cursor,ForceWalk,PointEnter,Goal,Warp,Star,Shoot,Coll;
 	private Dictionary<soundclip, AudioClip> audioClipMapper = new Dictionary<soundclip, AudioClip>();
 
 	// Use this for initialization
@@ -28,6 +28,7 @@ public class SoundManager : MonoBehaviour {
 		audioClipMapper.Add (soundclip.Warp,Warp);
 		audioClipMapper.Add (soundclip.Star,Star);
 		audioClipMapper.Add (soundclip.Shoot,Shoot);
+		audioClipMapper.Add (soundclip.Coll,Coll);
 
 
 	}

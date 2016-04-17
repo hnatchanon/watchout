@@ -6,6 +6,8 @@ public class FootColider : MonoBehaviour {
 
     public PlayerController playerController;
     private Rigidbody rb;
+	public SoundManager sm;
+
     void Start ()
     {
         rb = playerController.GetComponent<Rigidbody>();
@@ -20,6 +22,7 @@ public class FootColider : MonoBehaviour {
         }
         if (other.CompareTag("EnergyBall") && playerController.getState() != PlayerController.playerState.StageClear)
         {
+			sm.playSound (SoundManager.soundclip.Coll);
             Destroy(other.gameObject);
             playerController.gameObject.GetComponent<Rigidbody>().AddForce(other.transform.forward * 500);
         }
