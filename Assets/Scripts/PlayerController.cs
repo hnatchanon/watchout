@@ -93,11 +93,7 @@ public class PlayerController : MonoBehaviour {
 
 			sm.playSound (SoundManager.soundclip.Goal);
             transform.position = Vector3.Lerp(transform.position, lerpPosition, 1 * Time.deltaTime);
-            float tranX = transform.position.x;
-            float tranZ = transform.position.z;
-            float lerpX = lerpPosition.x;
-            float lerpZ = lerpPosition.z;
-            if (Math.Abs(tranX - lerpX) <= 0.01 && Math.Abs(tranZ - lerpZ) <= 0.01)
+            if (Math.Abs(transform.position.x - lerpPosition.x) <= 0.1 && Math.Abs(transform.position.z - lerpPosition.z) <= 0.1)
             {
                 timerHUD.SetActive(false);
                 starHUD.SetActive(false);
