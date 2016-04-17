@@ -42,6 +42,8 @@ public class MainController : MonoBehaviour
     public Toggle fxToggle;
     public Text settingLanguageText;
 
+    public Text stageNameHUD, BestTimeHUD, TimeHUD;
+
 
 
     void Start()
@@ -53,6 +55,7 @@ public class MainController : MonoBehaviour
 
         //textManager.LogAllEngWords();
         initSetting();
+        hideLeaderboardHUD();
     }
 
 
@@ -149,14 +152,22 @@ public class MainController : MonoBehaviour
             string[] arr = name.Split('S');
             int stage = int.Parse(arr[0]);
             int level = int.Parse(arr[1]);
+            int min = -1;
+            int sec = -1;
             int[] leaderboardRecord = Leaderboard.getLeaderboard(stage, level);
             if (leaderboardRecord != null)
+            {
+                min = leaderboardRecord[0];
+                sec = leaderboardRecord[1];
                 Debug.Log(name + " Leaderboard. Min: " + leaderboardRecord[0] + " Sec: " + leaderboardRecord[1]);
+            }
             else
                 Debug.Log("Leaderboard does't exist.");
 
             stageRenderer = go.GetComponent<Renderer>();
             stageRenderer.material.color = Color.green;
+
+            setLeaderboardHUD(stage, level, min, sec);
             
         }
     }
@@ -170,6 +181,7 @@ public class MainController : MonoBehaviour
         }
         gazed = false;
         text.color = colorStart;
+        hideLeaderboardHUD();
     }
 
     public void moveCameraTo(Vector3 destination)
@@ -326,5 +338,22 @@ public class MainController : MonoBehaviour
             audioSource.mute = true;
         else
             audioSource.mute = false;
+    }
+
+    public void hideLeaderboardHUD()
+    {
+        BestTimeHUD.text = "";
+        stageNameHUD.text = "";
+        TimeHUD.text = "";
+    }
+
+    public void setLeaderboardHUD(int level, int stage, int min, int sec)
+    {
+        stageNameHUD.text = "Level: " + level + " Stage: " + stage;
+        BestTimeHUD.text = "Best Time";
+        if (min == -1 && sec == -1)
+            TimeHUD.text = "No Record";
+        else
+            TimeHUD.text = "Min: " + min + " Sec: " + sec;
     }
 }
