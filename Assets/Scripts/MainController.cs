@@ -214,6 +214,7 @@ public class MainController : MonoBehaviour
                 break;
 
             case playerState.HowToPlay:
+                Application.LoadLevel("Training");
                 BackFromHowToPlay.SetActive(true);
                 break;
 
