@@ -10,6 +10,7 @@ public class TurretEnemy : MonoBehaviour {
     public float destroyIn = 1.0f;
 
     private float timer;
+	public SoundManager sm;
 
 	// Use this for initialization
 	void Start () {
@@ -33,6 +34,7 @@ public class TurretEnemy : MonoBehaviour {
     private void Shoot()
     {
         Debug.Log("LifeTime: " + destroyIn);
+		sm.playSound (SoundManager.soundclip.Shoot,1);
         GameObject go = (GameObject)Instantiate(bullet, gunTransform.position, gunTransform.rotation);
         //Debug.Log(gunTransform.forward);
         Destroy(go, destroyIn);
