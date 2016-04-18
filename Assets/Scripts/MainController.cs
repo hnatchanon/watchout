@@ -45,8 +45,7 @@ public class MainController : MonoBehaviour
     public Text settingLanguageText;
 
     public Text stageNameHUD, BestTimeHUD, TimeHUD;
-
-	public GameObject stage1,stage2,stage3;
+    public Material stageColorEnter, stageColorExit;
 
 
 
@@ -169,7 +168,7 @@ public class MainController : MonoBehaviour
                 Debug.Log("Leaderboard does't exist.");
 
             stageRenderer = go.GetComponent<Renderer>();
-			stageRenderer.material.color = starEnter;
+			stageRenderer.material = stageColorEnter;
 
             setLeaderboardHUD(stage, level, min, sec);
             
@@ -180,7 +179,7 @@ public class MainController : MonoBehaviour
     {
         if (stageRenderer)
         {
-			stageRenderer.material.color = starExit;
+			stageRenderer.material = stageColorExit;
             stageRenderer = null;
         }
         gazed = false;
@@ -229,24 +228,18 @@ public class MainController : MonoBehaviour
 
 		   case playerState.LevelSelect:
 				levelSelectMenu.SetActive (true);
-				stage1.SetActive (true);
-				stage2.SetActive (true);
-				stage3.SetActive (true);
                 break;
 
             case playerState.Level1:
                 BackFromLevel1.SetActive(true);
-			    stage1.SetActive (false);
                 break;
 
             case playerState.Level2:
                 BackFromLevel2.SetActive(true);
-			    stage2.SetActive (false);
                 break;
 
             case playerState.Level3:
                 BackFromLevel3.SetActive(true);
-				stage3.SetActive (false);
                 break;
         }
     }
