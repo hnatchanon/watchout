@@ -16,7 +16,7 @@ public class MapGenerator : MonoBehaviour
     public static int[,,] numbers;
     public static int level, stage;
 
-    public Transform player, floor, goal, star, slope, forceWalk, ladder, spring, wall1, wall2, wall3, rotatingFloor, narrowFloor;
+    public Transform player, floor, goal, star, slope, forceWalk, ladder, spring, wall1, wall2, wall3, rotatingFloor, narrowFloor, enemy;
     public MovingPlane movingPlane;
     public Warp warp;
 
@@ -155,6 +155,11 @@ public class MapGenerator : MonoBehaviour
                     {
                         Transform tmpStar = (Transform)Instantiate(star, new Vector3(j, i, k) * 4, direction[numbers[i, j, k] % 10]);
                         stars[tmpCnt++] = tmpStar;
+                    }
+
+                    if ((numbers[i, j, k] / 1000) % 10000000 == 3)
+                    {
+                        Instantiate(enemy, new Vector3(j, i, k) * 4, direction[numbers[i, j, k] % 10]);
                     }
 
                 }

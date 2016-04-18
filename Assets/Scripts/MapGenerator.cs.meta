@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 887c628dc6bc6b64284f88f12ac4594f
-timeCreated: 1460042463
+timeCreated: 1460985826
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
@@ -13,6 +13,12 @@ MonoImporter:
   - forceWalk: {fileID: 422816, guid: 4fb1dd7cd3e1db74083f705435317ff6, type: 2}
   - ladder: {fileID: 441660, guid: 44f2bfe442be549e1869f4ea842bfc1d, type: 2}
   - spring: {fileID: 445540, guid: cbe875bc088835948a6975047cda4dd4, type: 2}
+  - wall1: {fileID: 499990, guid: 79ac63e36f2974140ba808e01cbb3b0b, type: 2}
+  - wall2: {fileID: 410478, guid: f8a8e0252fdfcde43815b9cb8e3cd880, type: 2}
+  - wall3: {fileID: 479520, guid: cd3360e34165e4c4392b2c52ac3a7d42, type: 2}
+  - rotatingFloor: {fileID: 463518, guid: c1caa52183cbaf342a19db6ba8c8e209, type: 2}
+  - narrowFloor: {fileID: 454408, guid: 360dd4d247dd3d84c91443251306f2e7, type: 2}
+  - enemy: {fileID: 445360, guid: 8f077ed9f3bfa4545a1b398bc4e63e58, type: 2}
   - movingPlane: {fileID: 11465712, guid: 68bd678a319a52c4091235578c173788, type: 2}
   - warp: {fileID: 11496612, guid: 4c9a47970d442f642a19da8085a3139f, type: 2}
   executionOrder: 0
