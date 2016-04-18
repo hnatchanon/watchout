@@ -46,6 +46,8 @@ public class MainController : MonoBehaviour
 
     public Text stageNameHUD, BestTimeHUD, TimeHUD;
 
+	public GameObject stage1,stage2,stage3;
+
 
 
     void Start()
@@ -225,20 +227,26 @@ public class MainController : MonoBehaviour
                 BackFromSetting.SetActive(true);
                 break;
 
-            case playerState.LevelSelect:
-                levelSelectMenu.SetActive(true);
+		   case playerState.LevelSelect:
+				levelSelectMenu.SetActive (true);
+				stage1.SetActive (true);
+				stage2.SetActive (true);
+				stage3.SetActive (true);
                 break;
 
             case playerState.Level1:
                 BackFromLevel1.SetActive(true);
+			    stage1.SetActive (false);
                 break;
 
             case playerState.Level2:
                 BackFromLevel2.SetActive(true);
+			    stage2.SetActive (false);
                 break;
 
             case playerState.Level3:
                 BackFromLevel3.SetActive(true);
+				stage3.SetActive (false);
                 break;
         }
     }
