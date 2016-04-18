@@ -33,7 +33,7 @@ public class TurretEnemy : MonoBehaviour {
 
     private void Shoot()
     {
-        Debug.Log("LifeTime: " + destroyIn);
+        //Debug.Log("LifeTime: " + destroyIn);
 		sm.playSound (SoundManager.soundclip.Shoot,1);
         GameObject go = (GameObject)Instantiate(bullet, gunTransform.position, gunTransform.rotation);
         //Debug.Log(gunTransform.forward);
