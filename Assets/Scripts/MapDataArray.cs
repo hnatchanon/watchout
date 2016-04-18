@@ -308,7 +308,7 @@ public class MapDataArray : MonoBehaviour
     public static int[][][,,] getData()
     {
         Data[0] = level1;
-        Data[1] = new int[10][,,];
+        Data[1] = level2;
 
 
         Data[1][0] = S01_L01;
