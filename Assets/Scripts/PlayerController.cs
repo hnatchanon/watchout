@@ -177,12 +177,12 @@ public class PlayerController : MonoBehaviour {
             inGameMenu();
         }
 
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKey(KeyCode.I))
         {
             minimap.gameObject.SetActive(true);
         }
 
-        if (Input.GetKeyUp(KeyCode.I))
+        else if (!Input.GetKey(KeyCode.I))
         {
             minimap.gameObject.SetActive(false);
         }
