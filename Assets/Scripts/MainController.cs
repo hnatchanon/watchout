@@ -12,6 +12,8 @@ public class MainController : MonoBehaviour
     private string scene = "";
     private Color colorStart = Color.yellow;
     private Color colorEnd = Color.white;
+	private Color starEnter = new Color32 (73, 255, 245, 255);
+	private Color starExit = new Color32 (108, 108, 108, 255);
     private TextMesh text;
     public GameObject cardboard;
     public GameObject mainMenu, levelSelectMenu, StartText, SetText, Credit, HowText, BackFromHowToPlay, BackFromCredit, BackFromSetting, BackFromLevel1, BackFromLevel2, BackFromLevel3, CreditMesh, SettingMesh;
@@ -43,6 +45,8 @@ public class MainController : MonoBehaviour
     public Text settingLanguageText;
 
     public Text stageNameHUD, BestTimeHUD, TimeHUD;
+
+	public GameObject stage1,stage2,stage3;
 
 
 
@@ -165,7 +169,7 @@ public class MainController : MonoBehaviour
                 Debug.Log("Leaderboard does't exist.");
 
             stageRenderer = go.GetComponent<Renderer>();
-            stageRenderer.material.color = Color.green;
+			stageRenderer.material.color = starEnter;
 
             setLeaderboardHUD(stage, level, min, sec);
             
@@ -176,7 +180,7 @@ public class MainController : MonoBehaviour
     {
         if (stageRenderer)
         {
-            stageRenderer.material.color = Color.white;
+			stageRenderer.material.color = starExit;
             stageRenderer = null;
         }
         gazed = false;
@@ -223,20 +227,26 @@ public class MainController : MonoBehaviour
                 BackFromSetting.SetActive(true);
                 break;
 
-            case playerState.LevelSelect:
-                levelSelectMenu.SetActive(true);
+		   case playerState.LevelSelect:
+				levelSelectMenu.SetActive (true);
+				stage1.SetActive (true);
+				stage2.SetActive (true);
+				stage3.SetActive (true);
                 break;
 
             case playerState.Level1:
                 BackFromLevel1.SetActive(true);
+			    stage1.SetActive (false);
                 break;
 
             case playerState.Level2:
                 BackFromLevel2.SetActive(true);
+			    stage2.SetActive (false);
                 break;
 
             case playerState.Level3:
                 BackFromLevel3.SetActive(true);
+				stage3.SetActive (false);
                 break;
         }
     }
