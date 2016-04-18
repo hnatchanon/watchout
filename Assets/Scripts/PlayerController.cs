@@ -5,7 +5,6 @@ public class PlayerController : MonoBehaviour {
 
     Vector3 forward;
     Rigidbody rb;
-    SphereCollider co;
 
     public enum playerState { Idle, Running, Claiming, Air, Dead, StageClear, ClaimingStair, Teleporting, ForceWalk, StageStart };
 
@@ -43,10 +42,12 @@ public class PlayerController : MonoBehaviour {
 
 
     void Start() {
+        minimap = GetComponentInChildren<Minimap>();
+        Debug.Log("Minimap");
+        minimap.gameObject.SetActive(false);
         state = playerState.StageStart;
         //Freeze();
         rb = GetComponent<Rigidbody>();
-        co = GetComponent<SphereCollider>();
         result.SetActive(false);
         dead.SetActive(false);
         isAfterClear = false;
@@ -176,8 +177,18 @@ public class PlayerController : MonoBehaviour {
             inGameMenu();
         }
 
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            minimap.gameObject.SetActive(true);
+        }
+
+        if (Input.GetKeyUp(KeyCode.I))
+        {
+            minimap.gameObject.SetActive(false);
+        }
 
     }
+
 
     private void Move(Vector3 direction) {
         rb.MovePosition(transform.position + direction * Time.deltaTime * currentSpeed);

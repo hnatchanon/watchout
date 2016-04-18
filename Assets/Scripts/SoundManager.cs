@@ -46,7 +46,7 @@ public class SoundManager : MonoBehaviour {
 	{
         if (PlayerPrefs.GetString("FX") == "FALSE")
             return;
-        Debug.Log (sc + " " + volumn);
+        //Debug.Log (sc + " " + volumn);
 		AudioClip ac = audioClipMapper [sc];
 		source.PlayOneShot (ac,volumn);
 		//Debug.Log("Playsound eiei");
