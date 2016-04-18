@@ -99,7 +99,18 @@ public class PlayerController : MonoBehaviour {
                 timerHUD.SetActive(false);
                 starHUD.SetActive(false);
                 result.SetActive(true);
-                submitLeaderboard(MapGenerator.level, MapGenerator.stage, TimerText.getTime()[0], TimerText.getTime()[1]);
+
+                int[] tmpTime = TimerText.getTime();
+
+                submitLeaderboard(MapGenerator.level, MapGenerator.stage, tmpTime[0], tmpTime[1]);
+
+                Text[] tmpTexts = result.GetComponentsInChildren<Text>();
+                for(int i=0; i<tmpTexts.Length; i++)
+                {
+                    if (tmpTexts[i].name == "Time")
+                        tmpTexts[i].text = "Time: " + tmpTime[0] + ":" + tmpTime[1];
+                }
+
                 Debug.Log(getLeaderboardRecord(MapGenerator.level, MapGenerator.stage)[0] + " " + getLeaderboardRecord(MapGenerator.level, MapGenerator.stage)[1]);
                 isAfterClear = true;
             }
