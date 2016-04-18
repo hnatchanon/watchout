@@ -310,9 +310,7 @@ public class MapDataArray : MonoBehaviour
         Data[0] = level1;
         Data[1] = level2;
 
-
-        Data[1][0] = S01_L01;
-        Data[1][1] = S01_L02;
+    
         return Data;
     }
 
