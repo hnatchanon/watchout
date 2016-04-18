@@ -138,7 +138,7 @@ public class MapGenerator : MonoBehaviour
                     }
 
                     // narrow floor
-                    if ((numbers[i, j, k] / 10) % 100 == 13)
+                    if ((numbers[i, j, k] / 10) % 100 == 15)
                     {
                         Instantiate(narrowFloor, new Vector3(j, i, k) * 4, direction[numbers[i, j, k] % 10]);
                     }
