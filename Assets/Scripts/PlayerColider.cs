@@ -58,18 +58,23 @@ public class PlayerColider : MonoBehaviour {
         }
 
 
+
     }
 
     void OnTriggerStay(Collider other)
     {
         //Debug.Log("On Trigger Stay: " + other.tag);
-        if(other.CompareTag("ForceWalk"))
+
+        if (other.CompareTag("ForceWalk"))
         {
+            if (playerController.getState() == PlayerController.playerState.ForceWalk)
+                return;
             playerController.SetState(PlayerController.playerState.ForceWalk);
             Vector3 forward = other.transform.forward;
             Vector3 dir = new Vector3(forward.z, 0f, -forward.x);
             playerController.setForceWalkForward(dir);
         }
+
 
         if (other.CompareTag("VerticleObstrucle"))
         {

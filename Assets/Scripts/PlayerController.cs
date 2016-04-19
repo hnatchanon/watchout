@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour {
 
     void FixedUpdate() {
         //Debug.Log("Player State: " + state);
-
+        
         CheckFreeze();
         CheckSpeed();
         CheckInput();
@@ -133,7 +133,7 @@ public class PlayerController : MonoBehaviour {
 
     public void CheckInput() {
 
-
+        Debug.Log(state);
 
         if (state == playerState.Idle || state == playerState.Air || state == playerState.ClaimingStair) {
             if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) {
