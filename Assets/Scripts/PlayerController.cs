@@ -136,24 +136,24 @@ public class PlayerController : MonoBehaviour {
 
 
         if (state == playerState.Idle || state == playerState.Air || state == playerState.ClaimingStair) {
-            if (Input.GetKey(KeyCode.W)) {
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) {
                 Move(forward);
             }
 
-            if (Input.GetKey(KeyCode.S))
+            if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
                 Move(new Vector3(-forward.x, 0, -forward.z));
 
-            if (Input.GetKey(KeyCode.A))
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
                 Move(new Vector3(-forward.z, 0, forward.x));
 
-            if (Input.GetKey(KeyCode.D))
+            if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
                 Move(new Vector3(forward.z, 0, -forward.x));
         }
         else if (state == playerState.Claiming) {
             rb.useGravity = false;
-            if (Input.GetKey(KeyCode.W))
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
                 Move(new Vector3(forward.x / 2, speed / 2, forward.z / 2));
-            else if (Input.GetKey(KeyCode.S)) {
+            else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) {
                 if (!isGroud)
                     Move(new Vector3(0, -speed / 2, 0));
                 else
@@ -183,17 +183,17 @@ public class PlayerController : MonoBehaviour {
             result.SetActive(true);
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Alpha4))
         {
             inGameMenu();
         }
 
-        if (Input.GetKey(KeyCode.I))
+        if (Input.GetKey(KeyCode.I) || Input.GetKey(KeyCode.Alpha3))
         {
             minimap.gameObject.SetActive(true);
         }
 
-        else if (!Input.GetKey(KeyCode.I))
+        else if (!Input.GetKey(KeyCode.I) && !Input.GetKey(KeyCode.Alpha3))
         {
             minimap.gameObject.SetActive(false);
         }
@@ -209,7 +209,7 @@ public class PlayerController : MonoBehaviour {
         
 
 
-        if ((Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.Alpha5)) && state == playerState.Idle)
+        if ((Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.Alpha5) || Input.GetKey(KeyCode.Alpha6)) && state == playerState.Idle)
             currentSpeed = speed * runningMultiplyer;
         else
             currentSpeed = speed;
